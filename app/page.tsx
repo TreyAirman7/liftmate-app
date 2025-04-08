@@ -561,20 +561,20 @@ export default function LiftMatePage() {
           </main>
 
           {/* Bottom Navigation */}
-          <nav className="grid grid-cols-7 border-t border-border bg-background">
+          <nav className="grid grid-cols-7 border-t border-border bg-background pb-[env(safe-area-inset-bottom)]">
             {[
-              { id: "workout", icon: <Dumbbell className="h-6 w-6" />, label: "Workout" },
-              { id: "stats", icon: <BarChart2 className="h-6 w-6" />, label: "Stats" },
-              { id: "progress", icon: <TrendingUp className="h-6 w-6" />, label: "Progress" },
-              { id: "exercises", icon: <Clipboard className="h-6 w-6" />, label: "Exercises" },
-              { id: "history", icon: <Clock className="h-6 w-6" />, label: "History" },
-              { id: "goals", icon: <Target className="h-6 w-6" />, label: "Goals" },
-              { id: "pics", icon: <Image className="h-6 w-6" />, label: "Pics" },
+              { id: "workout", icon: <Dumbbell className="h-7 w-7" />, label: "Workout" },
+              { id: "stats", icon: <BarChart2 className="h-7 w-7" />, label: "Stats" },
+              { id: "progress", icon: <TrendingUp className="h-7 w-7" />, label: "Progress" },
+              { id: "exercises", icon: <Clipboard className="h-7 w-7" />, label: "Exercises" },
+              { id: "history", icon: <Clock className="h-7 w-7" />, label: "History" },
+              { id: "goals", icon: <Target className="h-7 w-7" />, label: "Goals" },
+              { id: "pics", icon: <Image className="h-7 w-7" />, label: "Pics" },
             ].map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => switchTab(tab.id)}
-                className={`flex flex-col items-center justify-center py-2 relative transition-colors ${
+                className={`flex flex-col items-center justify-center py-3 relative transition-colors ${
                   activeTab === tab.id ? "text-primary" : "text-muted-foreground hover:text-foreground"
                 }`}
                 disabled={isAnimating}
@@ -583,7 +583,7 @@ export default function LiftMatePage() {
               >
                 {activeTab === tab.id && <div className="absolute top-0 w-10 h-1 bg-primary rounded-full"></div>}
                 {tab.icon}
-                <span className="text-xs bottom-nav-text">{tab.label}</span>
+                <span className="text-sm bottom-nav-text">{tab.label}</span>
               </button>
             ))}
           </nav>

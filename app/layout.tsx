@@ -18,11 +18,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
         <link rel="manifest" href="/manifest.json" />
         {/* Apple PWA Tags for Add to Home Screen */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="LiftMate" />
         {/* Add Font Awesome for the loading icons */}
         <link
@@ -36,7 +36,7 @@ export default function RootLayout({
       <body className="overflow-hidden">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <WorkoutProvider>
-            <div className="app-container h-screen flex flex-col">{children}</div>
+            <div className="app-container h-screen flex flex-col pt-[env(safe-area-inset-top)]">{children}</div>
           </WorkoutProvider>
         </ThemeProvider>
         {/* Add Font Awesome script */}
