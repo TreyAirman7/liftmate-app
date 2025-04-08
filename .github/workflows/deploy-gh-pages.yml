@@ -36,7 +36,7 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
       - name: Build with Next.js
-        run: yarn export # Use the export script added earlier
+        run: yarn build # Build handles static export when output: 'export' is set
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
