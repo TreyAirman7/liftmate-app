@@ -13,6 +13,9 @@ try {
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export', // Enable static export for GitHub Pages
+  basePath: '/liftmate-app', // Set base path to repository name
+  assetPrefix: '/liftmate-app', // Set asset prefix to repository name
   eslint: {
     ignoreDuringBuilds: true,
   },
