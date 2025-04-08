@@ -1,0 +1,2386 @@
+/* Add these styles for the header text animation */
+/* Typewriter effect for header text */
+.typing-text {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid white;
+  width: 0;
+  display: inline-block;
+  animation: typing 2s steps(8, end) forwards 1s, blink 0.75s step-end infinite 1s;
+}
+
+/* No cursor stage - applied after typing completes */
+.typing-text.no-cursor {
+  width: 100%;
+  border-right-color: transparent;
+  animation: none; /* Stop previous animations */
+}
+
+/* Final animation stage - growth and glow effect */
+.typing-text.animate-complete {
+  width: 100%;
+  border-right-color: transparent;
+  transform: scale(1.25) translateX(8px);
+  color: #fff;
+  animation: powerPulse 2s ease-in-out forwards;
+  letter-spacing: 1px;
+  position: relative;
+  transition: transform 0.6s ease-out;
+}
+
+/* Wiggle animation - added through JS */
+.typing-text.wiggle {
+  animation: wiggle 0.5s ease-in-out;
+}
+
+/* Define the keyframe animations */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
+@keyframes wiggle {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-5px);
+  }
+  40% {
+    transform: translateX(5px);
+  }
+  60% {
+    transform: translateX(-3px);
+  }
+  80% {
+    transform: translateX(3px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Power pulse effect - creates a subtle "power up" impression */
+@keyframes powerPulse {
+  0% {
+    transform: scale(1.25) translateX(8px);
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.7);
+  }
+  50% {
+    transform: scale(1.35) translateX(10px);
+    filter: brightness(1.2);
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.7);
+  }
+  100% {
+    transform: scale(1.25) translateX(8px);
+    filter: brightness(1);
+    text-shadow: none;
+  }
+}
+
+/* Accessibility - respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .typing-text {
+    width: auto;
+    animation: none;
+    border-right: none;
+  }
+  .typing-text.wiggle,
+  .typing-text.animate-complete {
+    animation: none;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* cyrillic-ext */
+@font-face {
+  font-family: "Black Ops One";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/blackopsone/v20/qWcsB6-ypo7xBdr6Xshe96H3aDbbtwkh.woff2) format("woff2");
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* vietnamese */
+@font-face {
+  font-family: "Black Ops One";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/blackopsone/v20/qWcsB6-ypo7xBdr6Xshe96H3aDTbtwkh.woff2) format("woff2");
+  unicode-range:
+    U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: "Black Ops One";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/blackopsone/v20/qWcsB6-ypo7xBdr6Xshe96H3aDXbtwkh.woff2) format("woff2");
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: "Black Ops One";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/blackopsone/v20/qWcsB6-ypo7xBdr6Xshe96H3aDvbtw.woff2) format("woff2");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Add these CSS variables for dynamic animation control */
+:root {
+  --tab-animation-duration: 350ms;
+}
+
+/* Add these styles to ensure text colors remain consistent */
+:root {
+  /* Base theme variables */
+  --md-background: #ffffff;
+  --md-surface: #ffffff;
+  --md-on-surface: #1c1b1f;
+  --md-on-surface-variant: #49454e;
+  --md-outline: #79747e;
+  --md-outline-variant: #cac4d0;
+  --text-primary-color: #1c1b1f;
+  --text-secondary-color: #49454e;
+  --icon-bg-color: rgba(0, 0, 0, 0.05);
+
+  /* Default theme colors - will be overridden by theme-provider */
+  --md-primary: #00796b;
+  --md-primary-rgb: 0, 121, 107;
+  --md-primary-container: #b2dfdb;
+  --md-secondary: #00695c;
+  --md-secondary-rgb: 0, 105, 92;
+  --md-secondary-container: #b2dfdb;
+  --md-tertiary: #004d40;
+  --md-tertiary-rgb: 0, 77, 64;
+  --md-tertiary-container: #a7ffeb;
+  --md-primary-darker: #004d40;
+
+  /* Chart colors (from styles/globals.css) */
+  --chart-1: 12 76% 61%;
+  --chart-2: 173 58% 39%;
+  --chart-3: 197 37% 24%;
+  --chart-4: 43 74% 66%;
+  --chart-5: 27 87% 67%;
+
+  /* Sidebar variables (from styles/globals.css) */
+  --sidebar-background: 0 0% 98%;
+  --sidebar-foreground: 240 5.3% 26.1%;
+  --sidebar-primary: 240 5.9% 10%;
+  --sidebar-primary-foreground: 0 0% 98%;
+  --sidebar-accent: 240 4.8% 95.9%;
+  --sidebar-accent-foreground: 240 5.9% 10%;
+  --sidebar-border: 220 13% 91%;
+  --sidebar-ring: 217.2 91.2% 59.8%;
+
+  /* Elevation */
+  --md-elevation-1: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
+  --md-elevation-2: 0 3px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12);
+  --md-elevation-3: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1);
+  --md-elevation-4: 0 15px 25px rgba(0, 0, 0, 0.15), 0 5px 10px rgba(0, 0, 0, 0.05);
+  --md-elevation-5: 0 20px 40px rgba(0, 0, 0, 0.2);
+
+  /* Tailwind theme variables - map to our theme colors */
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  --primary: var(--md-primary);
+  --primary-foreground: 210 20% 98%;
+  --secondary: var(--md-secondary);
+  --secondary-foreground: 210 20% 98%;
+  --muted: 220 14.3% 95.9%;
+  --muted-foreground: 220 8.9% 46.1%;
+  --accent: var(--md-tertiary);
+  --accent-foreground: 210 20% 98%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 20% 98%;
+  --border: 220 13% 91%;
+  --input: 220 13% 91%;
+  --ring: var(--md-primary);
+  --radius: 0.5rem;
+}
+
+.dark {
+  /* Base theme variables */
+  --md-background: #1c1b1f;
+  --md-surface: #2a2930;
+  --md-on-surface: #e6e0e9;
+  --md-on-surface-variant: #cac4d0;
+  --md-outline: #938f99;
+  --md-outline-variant: #49454f;
+  --text-primary-color: #e6e0e9;
+  --text-secondary-color: #cac4d0;
+  --icon-bg-color: rgba(255, 255, 255, 0.05);
+
+  /* Chart colors (from styles/globals.css) */
+  --chart-1: 220 70% 50%;
+  --chart-2: 160 60% 45%;
+  --chart-3: 30 80% 55%;
+  --chart-4: 280 65% 60%;
+  --chart-5: 340 75% 55%;
+
+  /* Sidebar variables (from styles/globals.css) */
+  --sidebar-background: 240 5.9% 10%;
+  --sidebar-foreground: 240 4.8% 95.9%;
+  --sidebar-primary: 224.3 76.3% 48%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 240 3.7% 15.9%;
+  --sidebar-accent-foreground: 240 4.8% 95.9%;
+  --sidebar-border: 240 3.7% 15.9%;
+  --sidebar-ring: 217.2 91.2% 59.8%;
+
+  /* Elevation */
+  --md-elevation-1: 0 1px 3px rgba(0, 0, 0, 0.2), 0 0 2px rgba(0, 0, 0, 0.4);
+  --md-elevation-2: 0 2px 6px rgba(0, 0, 0, 0.25), 0 0 5px rgba(0, 0, 0, 0.4);
+  --md-elevation-3: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 8px rgba(0, 0, 0, 0.4);
+  --md-elevation-4: 0 8px 16px rgba(0, 0, 0, 0.5), 0 0 10px rgba(0, 0, 0, 0.4);
+  --md-elevation-5: 0 12px 24px rgba(0, 0, 0, 0.6), 0 0 12px rgba(0, 0, 0, 0.4);
+
+  /* Tailwind theme variables - map to our theme colors */
+  --background: 224 71.4% 4.1%;
+  --foreground: 210 20% 98%;
+  --card: 224 71.4% 4.1%;
+  --card-foreground: 210 20% 98%;
+  --popover: 224 71.4% 4.1%;
+  --popover-foreground: 210 20% 98%;
+  --primary: var(--md-primary);
+  --primary-foreground: 210 20% 98%;
+  --secondary: var(--md-secondary);
+  --secondary-foreground: 210 20% 98%;
+  --muted: 215 27.9% 16.9%;
+  --muted-foreground: 217.9 10.6% 64.9%;
+  --accent: var(--md-tertiary);
+  --accent-foreground: 210 20% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 20% 98%;
+  --border: 215 27.9% 16.9%;
+  --input: 215 27.9% 16.9%;
+  --ring: var(--md-primary);
+}
+
+/* Keyframes for subtle background gradient animation */
+@keyframes subtleGradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    /* Apply base styles first */
+    @apply bg-background text-foreground transition-colors duration-300 ease-in-out;
+    font-family: "Black Ops One", system-ui, sans-serif;
+
+    /* Add subtle animated gradient background */
+    /* Using slightly offset versions of the base background */
+    background: linear-gradient(-45deg, hsl(var(--background)), hsl(var(--background) / 0.95), hsl(var(--background)), hsl(var(--background) / 0.9));
+    background-size: 400% 400%;
+    animation: subtleGradientShift 30s ease infinite; /* Slow animation */
+  }
+
+  /* Disable background animation if user prefers reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    body {
+      animation: none;
+      background: hsl(var(--background)); /* Fallback to solid background */
+    }
+  }
+}
+
+/* Apply Black Ops One font to all text elements */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+div,
+button,
+input,
+select,
+textarea,
+a,
+label,
+li {
+  font-family: "Black Ops One", system-ui, sans-serif;
+}
+
+/* Preserve monospace font for specific elements that need it */
+.font-mono,
+code,
+pre,
+.timer-display {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* Custom font for app name - now redundant but kept for specificity */
+h1 {
+  font-family: "Black Ops One", system-ui, sans-serif;
+}
+
+/* Theme transition overlay */
+.theme-transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10000;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.theme-transition-overlay.theme-transition-active {
+  opacity: 0.85;
+  pointer-events: all;
+}
+
+/* Add these styles to ensure the app takes up the full screen and hides the status bar */
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  /* Add this to ensure the app takes up the full screen */
+  position: fixed;
+}
+
+/* App container with background patterns */
+.app-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  /* Add these properties to ensure full-screen mode */
+  position: fixed;
+  z-index: 1;
+}
+
+.dark .app-container {
+  background-image: radial-gradient(circle at 10% 10%, rgba(var(--md-primary-rgb), 0.15) 0%, transparent 30%),
+    radial-gradient(circle at 90% 90%, rgba(var(--md-primary-rgb), 0.15) 0%, transparent 30%);
+}
+
+/* App header styling */
+.app-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  width: 100%;
+  background-color: var(--md-primary);
+  background: linear-gradient(135deg, var(--md-primary) 0%, var(--md-primary-darker) 100%);
+  box-shadow: var(--md-elevation-2);
+  /* Add this to ensure the header is at the very top in full-screen mode */
+  position: relative;
+  z-index: 10;
+}
+
+.dark .app-header {
+  background: linear-gradient(135deg, var(--md-primary) 0%, rgba(0, 0, 0, 0.5) 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Adjust letter spacing for better readability with Black Ops One font */
+body {
+  color: var(--text-primary-color);
+  letter-spacing: 0.02em;
+}
+
+/* Ensure all text elements use the correct text color */
+p,
+span,
+div,
+label,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-primary-color);
+}
+
+/* Ensure muted text uses the correct secondary color */
+.text-muted-foreground {
+  color: var(--text-secondary-color) !important;
+}
+
+/* Adjust font sizes for better readability */
+p,
+.text-sm,
+.text-xs {
+  letter-spacing: 0.03em;
+}
+
+/* Add more comprehensive styling for interactive elements */
+
+/* Card styling - enhanced for theme consistency */
+.card,
+[class*="card"],
+.ui-card,
+.shadow-card {
+  background-color: var(--md-surface);
+  background-image: linear-gradient(
+    135deg,
+    rgba(var(--md-primary-rgb), 0.03) 0%,
+    rgba(var(--md-primary-rgb), 0.01) 100%
+  );
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: var(--md-elevation-1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.3s ease-in-out;
+}
+
+.card:hover,
+[class*="card"]:hover,
+.ui-card:hover,
+.shadow-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--md-elevation-2);
+}
+
+.dark .card,
+.dark [class*="card"],
+.dark .ui-card,
+.dark .shadow-card {
+  background-image: linear-gradient(135deg, rgba(var(--md-primary-rgb), 0.08) 0%, rgba(0, 0, 0, 0.3) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dark .card:hover,
+.dark [class*="card"]:hover,
+.dark .ui-card:hover,
+.dark .shadow-card:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), 0 0 10px rgba(var(--md-primary-rgb), 0.15);
+  border: 1px solid rgba(var(--md-primary-rgb), 0.2);
+}
+
+/* Button styling - enhanced for theme consistency */
+.button,
+.btn,
+button[class*="btn-"],
+.ui-button {
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Primary buttons */
+.button.primary,
+.btn-primary,
+.bg-primary,
+button[class*="bg-primary"] {
+  background-color: var(--md-primary);
+  color: white;
+  box-shadow: 0 2px 6px rgba(var(--md-primary-rgb), 0.3);
+  border: none;
+}
+
+.button.primary:hover,
+.btn-primary:hover,
+.bg-primary:hover,
+button[class*="bg-primary"]:hover {
+  background-color: var(--md-primary-darker);
+  box-shadow: 0 4px 12px rgba(var(--md-primary-rgb), 0.4);
+  transform: translateY(-2px);
+}
+
+.button.primary:active,
+.btn-primary:active,
+.bg-primary:active,
+button[class*="bg-primary"]:active {
+  background-color: var(--md-primary-darker);
+  box-shadow: 0 2px 4px rgba(var(--md-primary-rgb), 0.2), inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  transform: scale(0.98) translateY(1px);
+}
+
+.dark .button.primary,
+.dark .btn-primary,
+.dark .bg-primary,
+.dark button[class*="bg-primary"] {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25), 0 0 10px rgba(var(--md-primary-rgb), 0.4);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.dark .button.primary:hover,
+.dark .btn-primary:hover,
+.dark .bg-primary:hover,
+.dark button[class*="bg-primary"]:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 15px rgba(var(--md-primary-rgb), 0.5);
+}
+
+/* Progress bar animation */
+@keyframes progress-fill-light {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes progress-fill-dark {
+  0% {
+    background-position: 0% 50%;
+    box-shadow: 0 0 5px rgba(var(--md-primary-rgb), 0.3);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(var(--md-primary-rgb), 0.6);
+  }
+  100% {
+    background-position: 100% 50%;
+    box-shadow: 0 0 5px rgba(var(--md-primary-rgb), 0.3);
+  }
+}
+
+/* Progress indicators - enhanced for theme consistency */
+.progress,
+.progress-bar,
+[class*="progress"],
+.meter,
+.gauge {
+  background-color: rgba(var(--md-primary-rgb), 0.2);
+  overflow: hidden;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.progress-value,
+.progress-bar-value,
+.meter-value,
+.gauge-value,
+[class*="progress"] > div {
+  background: linear-gradient(90deg, var(--md-primary) 0%, var(--md-primary-container) 50%, var(--md-primary) 100%);
+  background-size: 200% 100%;
+  animation: progress-fill-light 2s infinite ease-in-out;
+}
+
+.dark .progress-value,
+.dark .progress-bar-value,
+.dark .meter-value,
+.dark .gauge-value,
+.dark [class*="progress"] > div {
+  animation: progress-fill-dark 2.5s infinite ease-in-out;
+}
+
+/* Form inputs - enhanced for theme consistency */
+input,
+select,
+textarea,
+.form-control,
+.input,
+[class*="input"] {
+  background-color: #f8f9fa;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: var(--md-on-surface);
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+.form-control:focus,
+.input:focus,
+[class*="input"]:focus {
+  background-color: #ffffff;
+  border-color: var(--md-primary);
+  box-shadow: 0 0 0 2px rgba(var(--md-primary-rgb), 0.2) !important;
+  outline: none;
+}
+
+.dark input,
+.dark select,
+.dark textarea,
+.dark .form-control,
+.dark .input,
+.dark [class*="input"] {
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark input:focus,
+.dark select:focus,
+.dark textarea:focus,
+.dark .form-control:focus,
+.dark .input:focus,
+.dark [class*="input"]:focus {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-color: var(--md-primary);
+  box-shadow: 0 0 0 2px rgba(var(--md-primary-rgb), 0.3) !important;
+}
+
+/* Navigation elements - enhanced for theme consistency */
+.nav-item,
+.tab,
+[class*="tab-"],
+.nav-link {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.nav-item.active,
+.tab.active,
+[class*="tab-"].active,
+.nav-link.active,
+.selected {
+  color: var(--md-primary);
+  border-color: var(--md-primary);
+}
+
+/* Badge and chip elements - enhanced for theme consistency */
+.badge,
+.chip,
+[class*="badge"],
+[class*="chip"] {
+  background-color: rgba(var(--md-primary-rgb), 0.1);
+  color: var(--md-primary);
+  border: 1px solid rgba(var(--md-primary-rgb), 0.2);
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.badge.primary,
+.chip.primary,
+[class*="badge-primary"],
+[class*="chip-primary"] {
+  background-color: var(--md-primary);
+  color: white;
+}
+
+.dark .badge,
+.dark .chip,
+.dark [class*="badge"],
+.dark [class*="chip"] {
+  background-color: rgba(var(--md-primary-rgb), 0.2);
+  border: 1px solid rgba(var(--md-primary-rgb), 0.3);
+}
+
+/* Checkbox, radio, and toggle elements - enhanced for theme consistency */
+input[type="checkbox"]:checked,
+input[type="radio"]:checked,
+.checkbox:checked,
+.radio:checked,
+.toggle:checked {
+  background-color: var(--md-primary);
+  border-color: var(--md-primary);
+}
+
+/* Tooltip and popover elements - enhanced for theme consistency */
+.tooltip,
+.popover,
+[class*="tooltip"],
+[class*="popover"] {
+  background-color: var(--md-surface);
+  border: 1px solid rgba(var(--md-primary-rgb), 0.2);
+  box-shadow: var(--md-elevation-2);
+  transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.dark .tooltip,
+.dark .popover,
+.dark [class*="tooltip"],
+.dark [class*="popover"] {
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(var(--md-primary-rgb), 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 8px rgba(var(--md-primary-rgb), 0.3);
+}
+
+/* Focus and selection styles - enhanced for theme consistency */
+:focus-visible {
+  outline: 2px solid var(--md-primary);
+  outline-offset: 2px;
+}
+
+::selection {
+  background-color: rgba(var(--md-primary-rgb), 0.2);
+  color: var(--md-on-surface);
+}
+
+.dark ::selection {
+  background-color: rgba(var(--md-primary-rgb), 0.4);
+  color: var(--md-on-surface);
+}
+
+/* Add these styles to the end of the file to ensure theme consistency for specific components */
+
+/* Template workout card icon */
+.template-icon-container {
+  background-color: rgba(var(--md-primary-rgb), 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.dark .template-icon-container {
+  background-color: rgba(var(--md-primary-rgb), 0.2);
+}
+
+.template-icon {
+  color: var(--md-primary);
+  transition: color 0.3s ease;
+}
+
+/* Ensure all buttons use theme colors */
+.btn-theme-primary,
+button[class*="bg-teal-"],
+[class*="bg-teal-"] {
+  background-color: var(--md-primary) !important;
+  color: white !important;
+  transition: all 0.2s ease;
+}
+
+.btn-theme-primary:hover,
+button[class*="bg-teal-"]:hover,
+[class*="bg-teal-"]:hover,
+button[class*="hover:bg-teal-"]:hover,
+[class*="hover:bg-teal-"]:hover {
+  background-color: var(--md-primary-darker) !important;
+  box-shadow: 0 4px 12px rgba(var(--md-primary-rgb), 0.4);
+}
+
+/* Ensure all text with teal color uses theme color */
+[class*="text-teal-"] {
+  color: var(--md-primary) !important;
+  transition: color 0.3s ease;
+}
+
+/* Fix text color issues - ensure text stays black in light mode and white in dark mode */
+
+/* Override any theme color text styles */
+[class*="text-teal-"] {
+  color: var(--md-primary) !important;
+  transition: color 0.3s ease;
+}
+
+/* Ensure all borders with teal color use theme color */
+[class*="border-teal-"] {
+  border-color: var(--md-primary) !important;
+  transition: border-color 0.3s ease;
+}
+
+/* Add a toast notification system */
+.toast-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 24rem;
+  width: 100%;
+}
+
+.toast {
+  background-color: var(--md-surface);
+  color: var(--md-on-surface);
+  border-left: 4px solid var(--md-primary);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: var(--md-elevation-2);
+  transform: translateX(120%);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.toast.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.toast.success {
+  border-left-color: #4caf50;
+}
+
+.toast.error {
+  border-left-color: #f44336;
+}
+
+.toast.warning {
+  border-left-color: #ff9800;
+}
+
+.toast.info {
+  border-left-color: var(--md-primary);
+}
+
+.dark .toast {
+  background-color: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 8px rgba(var(--md-primary-rgb), 0.3, 0, 0.8);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 8px rgba(var(--md-primary-rgb), 0.3);
+}
+
+/* Add these styles to ensure the exercise cards match the design in the screenshot */
+
+/* Exercise card styling */
+.exercise-card {
+  background-color: rgba(var(--md-primary-rgb), 0.1);
+  border: 1px solid rgba(var(--md-primary-rgb), 0.3);
+  transition: all 0.2s ease, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.exercise-card:hover {
+  border-color: var(--md-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(var(--md-primary-rgb), 0.2);
+}
+
+.dark .exercise-card {
+  background-color: rgba(30, 30, 30, 0.6);
+  border: 1px solid rgba(var(--md-primary-rgb), 0.2);
+}
+
+.dark .exercise-card:hover {
+  background-color: rgba(40, 40, 40, 0.8);
+  border-color: rgba(var(--md-primary-rgb), 0.5);
+}
+
+/* Muscle group badges */
+.muscle-badge {
+  background-color: rgba(var(--md-primary-rgb), 0.15);
+  color: var(--md-primary);
+  border: 1px solid rgba(var(--md-primary-rgb), 0.3);
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+  font-size: 0.7rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 1rem;
+}
+
+.dark .muscle-badge {
+  background-color: rgba(var(--md-primary-rgb), 0.2);
+  border: 1px solid rgba(var(--md-primary-rgb), 0.4);
+}
+
+/* Muscle filter buttons */
+.muscle-filter {
+  white-space: nowrap;
+  transition: all 0.2s ease, background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.muscle-filter.active {
+  background-color: var(--md-primary);
+  color: white;
+}
+
+/* Exercise library header */
+.exercise-library-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.exercise-library-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.exercise-library-title svg {
+  color: var(--md-primary);
+}
+
+/* Search bar styling */
+.search-exercises {
+  background-color: rgba(var(--md-primary-rgb), 0.05);
+  border: 1px solid rgba(var(--md-primary-rgb), 0.2);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  width: 100%;
+  transition: all 0.2s ease, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.search-exercises:focus {
+  background-color: rgba(var(--md-primary-rgb), 0.1);
+  border-color: var(--md-primary);
+  outline: none;
+}
+
+.dark .search-exercises {
+  background-color: rgba(20, 20, 20, 0.8);
+  border-color: rgba(var(--md-primary-rgb), 0.3);
+}
+
+.dark .search-exercises:focus {
+  background-color: rgba(30, 30, 30, 0.9);
+  border-color: var(--md-primary);
+}
+
+/* Add exercise button */
+.add-exercise-btn {
+  background-color: var(--md-primary);
+  color: white;
+  border-radius: 2rem;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.add-exercise-btn:hover {
+  background-color: var(--md-primary-darker);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(var(--md-primary-rgb), 0.3);
+}
+
+.dark .add-exercise-btn {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.dark .add-exercise-btn:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Add these styles to ensure the template dialog matches the design in the screenshot */
+
+/* Template dialog styling */
+.template-dialog {
+  max-width: 95vw;
+  width: 450px;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.dark .template-dialog {
+  background-color: rgba(20, 20, 20, 0.95);
+  border: 1px solid rgba(var(--md-primary-rgb), 0.3);
+}
+
+/* Template card styling */
+.template-card {
+  background-color: rgba(var(--md-primary-rgb), 0.1);
+  border: 1px solid rgba(var(--md-primary-rgb), 0.3);
+  transition: all 0.2s ease, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.template-card:hover {
+  border-color: var(--md-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(var(--md-primary-rgb), 0.2);
+}
+
+.dark .template-card {
+  background-color: rgba(var(--md-primary-rgb), 0.15);
+  border: 1px solid rgba(var(--md-primary-rgb), 0.3);
+}
+
+.dark .template-card:hover {
+  background-color: rgba(var(--md-primary-rgb), 0.2);
+  border-color: rgba(var(--md-primary-rgb), 0.5);
+}
+
+/* Start workout button */
+.template-card .start-workout-btn {
+  background-color: var(--md-primary);
+  color: white;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.template-card .start-workout-btn:hover {
+  background-color: var(--md-primary-darker);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(var(--md-primary-rgb), 0.3);
+}
+
+.dark .template-card .start-workout-btn {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.dark .template-card .start-workout-btn:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Add these styles to the end of your globals.css file */
+
+/* Update Template Creator Styles - remove white borders and use light grey background */
+.template-creator-dialog {
+  background-color: #f5f5f5;
+  color: #333333;
+  border-radius: 8px;
+  overflow: hidden;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.template-creator-dialog input {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  color: #333333;
+}
+
+.template-creator-dialog input:focus {
+  border-color: rgba(76, 175, 80, 0.6);
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
+}
+
+.template-creator-dialog .exercise-card {
+  background-color: #ffffff;
+  border: none;
+  margin-bottom: 0.75rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.template-creator-dialog .exercise-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Set Configuration Dialog */
+.set-config-dialog {
+  background-color: #f5f5f5;
+  color: #333333;
+  border: none;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.set-config-dialog .set-card {
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  border: none;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Add Exercise Dialog */
+.add-exercise-dialog {
+  background-color: #f5f5f5;
+  color: #333333;
+  border: none;
+}
+
+/* Make all buttons in template creator have no borders */
+.template-creator-dialog button {
+  border: none;
+}
+
+.template-creator-dialog button:hover {
+  border: none;
+}
+
+/* Apply no borders to all modal windows in the template creator */
+[data-dialog-content] {
+  border-radius: 8px;
+  overflow: hidden;
+  border: none;
+}
+
+/* Ensure the dialog content has the correct styling */
+[data-dialog-content] {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.dark .template-creator-dialog {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+.dark .template-creator-dialog input {
+  background-color: #444444;
+  border-color: #555555;
+  color: #ffffff;
+}
+
+.dark .template-creator-dialog .exercise-card {
+  background-color: #444444;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.dark .template-creator-dialog .exercise-card-header {
+  border-bottom: 1px solid #555555;
+}
+
+/* Exercise drag handle */
+.exercise-drag-handle {
+  cursor: grab;
+  touch-action: manipulation;
+}
+
+.exercise-drag-handle:active {
+  cursor: grabbing;
+}
+
+/* Drag animation */
+.sortable-exercise-item {
+  transition: transform 250ms ease;
+}
+
+.sortable-exercise-item.dragging {
+  z-index: 1;
+  opacity: 0.8;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Add Exercise Dialog */
+.add-exercise-dialog {
+  background-color: #f5f5f5;
+  color: #333333;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.add-exercise-dialog .search-input {
+  background-color: #ffffff;
+  border-color: #e0e0e0;
+  color: #333333;
+}
+
+.add-exercise-dialog .exercise-item {
+  padding: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.add-exercise-dialog .exercise-item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.add-exercise-dialog .muscle-badge {
+  background-color: #e0e0e0;
+  color: #333333;
+  font-size: 0.7rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 1rem;
+}
+
+/* Set Configuration Dialog */
+.set-config-dialog {
+  background-color: #f5f5f5;
+  color: #333333;
+  border: none;
+}
+
+.set-config-dialog .set-card {
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  border: none;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.set-config-dialog input {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  color: #333333;
+}
+
+.set-config-dialog .add-set-btn {
+  background-color: var(--md-primary);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.set-config-dialog .add-set-btn:hover {
+  background-color: var(--md-primary-darker);
+}
+
+/* Workout logger specific styles */
+.workout-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--md-primary);
+  cursor: pointer;
+}
+
+.workout-slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--md-primary);
+  cursor: pointer;
+  border: none;
+}
+
+/* Rest timer animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+
+/* Timer completion pulse */
+@keyframes pulse-once {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.7; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.animate-pulse-once {
+  animation: pulse-once 0.5s ease-out;
+}
+
+    transform: scale(1);
+  }
+}
+
+.rest-timer {
+  animation: pulse 2s infinite ease-in-out;
+}
+
+/* Personal record animation */
+@keyframes bounce-in {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.pr-animation {
+  animation: bounce-in 0.6s ease-out;
+}
+
+/* Workout completion particles */
+@keyframes float-particle {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.3;
+  }
+  90% {
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateY(-1000%) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.completion-particle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: float-particle 10s linear infinite;
+}
+
+/* Set completion animation */
+@keyframes set-complete {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.set-complete-animation {
+  animation: set-complete 0.5s ease-out;
+}
+
+/* Progress bar animation */
+.progress-bar {
+  transition: width 0.5s ease-in-out;
+  background: linear-gradient(90deg, var(--md-primary) 0%, var(--md-primary-darker) 100%);
+}
+
+/* Exercise navigation */
+.exercise-nav-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #444;
+  margin: 0 4px;
+  transition: all 0.3s ease;
+}
+
+.exercise-nav-dot.active {
+  background-color: var(--md-primary);
+  transform: scale(1.3);
+}
+
+.exercise-nav-dot.completed {
+  background-color: #666;
+}
+
+/* Add these styles for the loading screen */
+/* --- Loading Screen Styles --- */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--md-background);
+  background-image: radial-gradient(circle at 20% 20%, rgba(var(--md-primary-rgb), 0.25) 0%, transparent 30%),
+    radial-gradient(circle at 80% 80%, rgba(var(--md-primary-rgb), 0.25) 0%, transparent 30%);
+}
+
+.dark .loading-screen {
+  background-image: radial-gradient(circle at 10% 10%, rgba(var(--md-primary-rgb), 0.15) 0%, transparent 30%),
+    radial-gradient(circle at 90% 90%, rgba(var(--md-primary-rgb), 0.15) 0%, transparent 30%);
+}
+
+.loading-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Container for loader + title */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Loader animation container */
+.loader {
+  width: 150px;
+  height: 150px;
+  position: relative;
+  margin-bottom: 25px;
+}
+
+/* Title styles */
+.loading-title {
+  color: white;
+  font-size: 2.5em;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  letter-spacing: 4px;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: "Black Ops One", system-ui, sans-serif;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Base style for each moving item container (span) */
+.loader .item {
+  position: absolute;
+  width: 75px;
+  height: 75px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation-name: moveItems;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* Base style for the Font Awesome icons themselves */
+.loader .item i {
+  font-size: 72px !important; /* Increased from 26px to 36px */
+  line-height: 1;
+}
+
+/* 1. Dumbbell Item Container & Icon */
+.loader .item:nth-child(1) {
+  animation-delay: 0s;
+  z-index: 3;
+}
+.loader .item:nth-child(1) i {
+  color: var(--md-primary);
+}
+
+/* 2. Kettlebell/Weight Item Container & Icon */
+.loader .item:nth-child(2) {
+  animation-delay: -0.667s;
+  z-index: 2;
+}
+.loader .item:nth-child(2) i {
+  color: var(--md-secondary);
+}
+
+/* 3. Plate Item Container & Icon */
+.loader .item:nth-child(3) {
+  animation-delay: -1.333s;
+  z-index: 1;
+}
+.loader .item:nth-child(3) i {
+  color: var(--md-tertiary);
+}
+
+/* Keyframes for the Movement */
+@keyframes moveItems {
+  0%,
+  100% {
+    top: 0;
+    left: 0;
+  }
+  12.5% {
+    top: 0;
+    left: 0;
+  } /* Pause */
+  25% {
+    top: 0;
+    left: 50%;
+  }
+  37.5% {
+    top: 0;
+    left: 50%;
+  } /* Pause */
+  50% {
+    top: 50%;
+    left: 50%;
+  }
+  62.5% {
+    top: 50%;
+    left: 50%;
+  } /* Pause */
+  75% {
+    top: 50%;
+    left: 0;
+  }
+  87.5% {
+    top: 50%;
+    left: 0;
+  } /* Pause */
+}
+
+/* Tab transition animations */
+/* Entering from right animation with elastic motion */
+@keyframes elasticSlideInRight {
+  0% {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+  70% {
+    opacity: 1;
+    transform: translate3d(-2%, 0, 0); /* Slight overshoot */
+  }
+  85% {
+    transform: translate3d(1%, 0, 0); /* Bounce back */
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0); /* Final resting position */
+  }
+}
+
+/* Entering from left animation with elastic motion */
+@keyframes elasticSlideInLeft {
+  0% {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+  70% {
+    opacity: 1;
+    transform: translate3d(2%, 0, 0); /* Slight overshoot */
+  }
+  85% {
+    transform: translate3d(-1%, 0, 0); /* Bounce back */
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0); /* Final resting position */
+  }
+}
+
+/* Exiting to left animation */
+@keyframes elasticSlideOutLeft {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  40% {
+    opacity: 0.7;
+    transform: translate3d(-85%, 0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+/* Exiting to right animation */
+@keyframes elasticSlideOutRight {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  40% {
+    opacity: 0.7;
+    transform: translate3d(85%, 0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+/* Tab content base styles - optimized for performance */
+.tab-content {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0); /* Force GPU acceleration */
+  backface-visibility: hidden;
+  -webkit-overflow-scrolling: touch;
+  contain: content; /* Improve performance by containing repaints */
+  isolation: isolate; /* Create a new stacking context */
+}
+
+/* Active tab state */
+.tab-content.active {
+  position: relative;
+  z-index: 2;
+  display: block;
+  will-change: auto; /* Reset will-change when not animating */
+}
+
+/* Tab sliding in from right */
+.tab-content.sliding-in-right {
+  animation: elasticSlideInRight 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  display: block !important;
+  position: absolute;
+  z-index: 3;
+  pointer-events: none; /* Prevent interaction during animation */
+  animation-fill-mode: both;
+}
+
+/* Tab sliding in from left */
+.tab-content.sliding-in-left {
+  animation: elasticSlideInLeft 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  display: block !important;
+  position: absolute;
+  z-index: 3;
+  pointer-events: none; /* Prevent interaction during animation */
+  animation-fill-mode: both;
+}
+
+/* Tab sliding out to left */
+.tab-content.sliding-out-left {
+  animation: elasticSlideOutLeft 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  display: block !important;
+  position: absolute;
+  z-index: 1;
+  pointer-events: none; /* Prevent interaction during animation */
+  animation-fill-mode: both;
+}
+
+/* Tab sliding out to right */
+.tab-content.sliding-out-right {
+  animation: elasticSlideOutRight 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  display: block !important;
+  position: absolute;
+  z-index: 1;
+  pointer-events: none; /* Prevent interaction during animation */
+  animation-fill-mode: both;
+}
+
+/* Add animation end state classes to avoid repaints */
+.tab-content.animation-complete {
+  pointer-events: auto;
+  will-change: auto;
+}
+
+/* Reduced motion styles */
+@media (prefers-reduced-motion: reduce) {
+  .tab-content {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .tab-content.sliding-in-right,
+  .tab-content.sliding-in-left,
+  .tab-content.sliding-out-right,
+  .tab-content.sliding-out-left {
+    transition: opacity 0.1s ease !important;
+    animation: none !important;
+  }
+}
+
+/* Optimize for high-performance devices */
+@media (min-width: 1200px) {
+  .tab-content.sliding-in-right,
+  .tab-content.sliding-in-left,
+  .tab-content.sliding-out-right,
+  .tab-content.sliding-out-left {
+    animation-duration: 0.4s; /* Slightly longer, smoother animation on high-end devices */
+  }
+}
+
+/* Optimize for low-performance devices */
+@media (max-width: 600px), (max-height: 600px) {
+  .tab-content.sliding-in-right,
+  .tab-content.sliding-in-left,
+  .tab-content.sliding-out-right,
+  .tab-content.sliding-out-left {
+    animation-duration: 0.3s; /* Shorter animation on potentially lower-end devices */
+  }
+}
+
+/* Add a class for simplified animations */
+.simplified-animations .tab-content.sliding-in-right,
+.simplified-animations .tab-content.sliding-in-left,
+.simplified-animations .tab-content.sliding-out-right,
+.simplified-animations .tab-content.sliding-out-left {
+  animation-duration: calc(var(--tab-animation-duration) * 0.8);
+  animation-timing-function: ease-out;
+}
+
+/* Optimize animations for low-powered devices */
+.simplified-animations .tab-content.sliding-in-right {
+  animation-name: simpleSlideInRight;
+}
+
+.simplified-animations .tab-content.sliding-in-left {
+  animation-name: simpleSlideInLeft;
+}
+
+.simplified-animations .tab-content.sliding-out-right {
+  animation-name: simpleSlideOutRight;
+}
+
+.simplified-animations .tab-content.sliding-out-left {
+  animation-name: simpleSlideOutLeft;
+}
+
+/* Simplified animations without elastic effect */
+@keyframes simpleSlideInRight {
+  0% {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes simpleSlideInLeft {
+  0% {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes simpleSlideOutRight {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+@keyframes simpleSlideOutLeft {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+/* Update the standard animations to use the CSS variable for duration */
+.tab-content.sliding-in-right,
+.tab-content.sliding-in-left,
+.tab-content.sliding-out-right,
+.tab-content.sliding-out-left {
+  animation-duration: var(--tab-animation-duration);
+}
+
+/* Replace the tab animation styles with these improved versions */
+
+/* Tab transition animations */
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideOutLeft {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+@keyframes slideOutRight {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+/* Tab content base styles - optimized for performance */
+.tab-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0); /* Force GPU acceleration */
+  backface-visibility: hidden;
+  -webkit-overflow-scrolling: touch;
+  contain: content; /* Improve performance by containing repaints */
+  isolation: isolate; /* Create a new stacking context */
+}
+
+/* Active tab state */
+.tab-content.active {
+  position: relative;
+  z-index: 2;
+  display: block;
+  will-change: auto; /* Reset will-change when not animating */
+}
+
+/* Tab sliding in from right */
+.tab-content.slide-in-right {
+  animation: slideInRight var(--tab-animation-duration, 350ms) cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  display: block !important;
+  position: absolute;
+  z-index: 3;
+  pointer-events: none; /* Prevent interaction during animation */
+  animation-fill-mode: both;
+}
+
+/* Tab sliding in from left */
+.tab-content.slide-in-left {
+  animation: slideInLeft var(--tab-animation-duration, 350ms) cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  display: block !important;
+  position: absolute;
+  z-index: 3;
+  pointer-events: none; /* Prevent interaction during animation */
+  animation-fill-mode: both;
+}
+
+/* Tab sliding out to left */
+.tab-content.slide-out-left {
+  animation: slideOutLeft var(--tab-animation-duration, 350ms) cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  display: block !important;
+  position: absolute;
+  z-index: 1;
+  pointer-events: none; /* Prevent interaction during animation */
+  animation-fill-mode: both;
+}
+
+/* Tab sliding out to right */
+.tab-content.slide-out-right {
+  animation: slideOutRight var(--tab-animation-duration, 350ms) cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  display: block !important;
+  position: absolute;
+  z-index: 1;
+  pointer-events: none; /* Prevent interaction during animation */
+  animation-fill-mode: both;
+}
+
+/* Add animation end state classes to avoid repaints */
+.tab-content.animation-complete {
+  pointer-events: auto;
+  will-change: auto;
+}
+
+/* Hidden tab state */
+.tab-content.hidden {
+  display: none;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Reduced motion styles */
+@media (prefers-reduced-motion: reduce) {
+  .tab-content {
+    transition: opacity 0.1s ease-out !important;
+    animation: none !important;
+  }
+
+  .tab-content.slide-in-right,
+  .tab-content.slide-in-left {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .tab-content.slide-out-right,
+  .tab-content.slide-out-left {
+    opacity: 0;
+  }
+}
+
+/* Simplified animations for low-powered devices */
+.simplified-animations .tab-content.slide-in-right,
+.simplified-animations .tab-content.slide-in-left,
+.simplified-animations .tab-content.slide-out-right,
+.simplified-animations .tab-content.slide-out-left {
+  animation-duration: calc(var(--tab-animation-duration, 350ms) * 0.8);
+  animation-timing-function: ease-out;
+}
+
+/* Fix specific components that might be using theme colors for text */
+.card-title,
+.card-header h3,
+.dialog-title {
+  color: var(--text-primary-color) !important;
+}
+
+/* Ensure buttons with theme background have proper contrast text */
+.bg-primary,
+button[class*="bg-primary"],
+.btn-primary {
+  color: white !important;
+}
+
+/* Fix navigation text colors */
+.bottom-nav-text {
+  color: var(--text-primary-color);
+}
+
+/* Active tab should use theme color */
+button[aria-current="page"] {
+  color: var(--md-primary) !important;
+}
+
+/* Inactive tabs should use muted color */
+nav button:not([aria-current="page"]) {
+  color: var(--text-secondary-color);
+}
+
+/* Fix any other specific components that might be using theme colors incorrectly */
+.exercise-name,
+.workout-name,
+.template-name {
+  color: var(--text-primary-color) !important;
+}
+
+/* Add these keyframe animations for the loading screen */
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes driftFade {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translate(40px, -50px) scale(1.15);
+    opacity: 0.35;
+  }
+  100% {
+    transform: translate(-30px, 20px) scale(0.9);
+    opacity: 0.2;
+  }
+}
+
+@keyframes fadeInScaleUp {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes rotateDumbbell {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(15deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes bobDumbbell {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes glowWeight {
+  0%,
+  100% {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 0 5px rgba(156, 163, 175, 0.3);
+  }
+  50% {
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3), 0 0 15px rgba(156, 163, 175, 0.6);
+  }
+}
+
+@keyframes fillBar {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes loadingDots {
+  0%,
+  60%,
+  100% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Add the CSS styles for the comparison feature */
+/* Photo comparison styles */
+.timeline-container {
+  scrollbar-width: thin;
+  scrollbar-color: var(--md-primary) transparent;
+}
+
+.timeline-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.timeline-container::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+}
+
+.timeline-container::-webkit-scrollbar-thumb {
+  background: var(--md-primary);
+  border-radius: 4px;
+}
+
+.timeline-container::-webkit-scrollbar-thumb:hover {
+  background: var(--md-primary-darker);
+}
+
+/* Selected timeline image */
+.timeline-image.selected-before {
+  outline: 3px solid var(--md-primary);
+  outline-offset: 2px;
+  transform: scale(1.05);
+}
+
+.timeline-image.selected-after {
+  outline: 3px solid var(--md-secondary);
+  outline-offset: 2px;
+  transform: scale(1.05);
+}
+
+/* Comparison slider styles */
+.comparison-slider {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  z-index: 30;
+}
+
+/* Comparison container */
+.comparison-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+
+/* 'After' image container */
+.comparison-after-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  transition: clip-path 0.1s ease-out, opacity 0.1s ease-out;
+}
+
+.comparison-container.fade-mode .comparison-after-container {
+  clip-path: none !important; /* Disable clipping in fade mode */
+}
+
+/* Slider handle line */
+.comparison-handle-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: var(--md-primary);
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: ew-resize;
+  z-index: 25;
+  pointer-events: none;
+  transition: left 0.1s ease-out, opacity 0.2s ease-out;
+}
+
+/* Hide handle in fade mode */
+.comparison-container.fade-mode .comparison-handle-line {
+  opacity: 0;
+}
+
+/* Hide scrollbar for clean UI */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Ensure proper scrolling behavior throughout the app */
+html,
+body {
+  height: 100%;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Ensure tab content scrolls properly */
+.tab-content {
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+}
+
+/* Ensure horizontal scrolling containers have proper behavior */
+.horizontal-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  white-space: nowrap;
+}
+
+/* Ensure dialog content scrolls properly */
+[role="dialog"] [data-dialog-content] {
+  max-height: 85vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Ensure proper scrolling on mobile devices */
+@media (max-width: 640px) {
+  .tab-content {
+    overflow-y: auto !important;
+    height: calc(100vh - 120px); /* Account for header and bottom nav */
+  }
+
+  [role="dialog"] [data-dialog-content] {
+    max-height: 80vh;
+  }
+}
+
+/* Add these styles to ensure proper scrolling behavior for template dialogs */
+/* Add at the end of the file, before the last closing brace */
+
+/* Ensure template dialogs have proper scrolling */
+.template-dialog [data-dialog-content],
+.template-creator-dialog [data-dialog-content],
+[role="dialog"] [data-dialog-content] {
+  max-height: 85vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Ensure proper scrolling on mobile devices */
+@media (max-width: 640px) {
+  .template-dialog [data-dialog-content],
+  .template-creator-dialog [data-dialog-content] {
+    max-height: 80vh;
+  }
+}
+
+/* Add these styles for the muscle heatmap component */
+/* Muscle Heatmap Styles */
+.muscle-heatmap-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* SVG Container */
+.muscle-map-svg-container {
+  width: 100%;
+  max-width: 250px;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+/* SVG Maps (Front/Back) */
+.muscle-map {
+  display: none;
+  width: 100%;
+  height: auto;
+}
+.muscle-map.active {
+  display: block;
+}
+
+/* Body Outline Style */
+.body-outline {
+  fill: none;
+  stroke: var(--text-primary-color);
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Muscle Area Styles */
+.muscle-group {
+  fill: #4a4a4a;
+  stroke: none;
+  opacity: 0.7;
+  transition: fill 0.3s ease, opacity 0.3s ease, background-color 0.3s ease-in-out;
+  cursor: pointer;
+}
+.muscle-group:hover {
+  opacity: 1.0;
+}
+
+/* Intensity level styles - dynamically colored with theme color */
+.intensity-0 {
+  fill: #4a4a4a;
+  opacity: 0.7;
+}
+.intensity-1 {
+  fill: var(--md-primary);
+  opacity: 0.2;
+}
+.intensity-2 {
+  fill: var(--md-primary);
+  opacity: 0.4;
+}
+.intensity-3 {
+  fill: var(--md-primary);
+  opacity: 0.6;
+}
+.intensity-4 {
+  fill: var(--md-primary);
+  opacity: 0.8;
+}
+.intensity-5 {
+  fill: var(--md-primary);
+  opacity: 1.0;
+}
+
+/* Controls/Buttons */
+.muscle-map-controls {
+  display: flex;
+  margin-bottom: 1.5rem;
+  background-color: var(--md-background);
+  border-radius: 999px;
+  padding: 4px;
+  border: 1px solid var(--border);
+}
+.muscle-view-button {
+  padding: 8px 20px;
+  border: none;
+  background-color: transparent;
+  color: var(--text-secondary-color);
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease-in-out;
+}
+.muscle-view-button.active {
+  background-color: var(--md-primary);
+  color: var(--primary-foreground);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Legend Styles */
+.muscle-group-legend {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  width: 100%;
+  max-width: 300px;
+}
+.legend-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary-color);
+  margin-bottom: 0.5rem;
+}
+.legend-scale {
+  display: flex;
+  width: 100%;
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.legend-labels {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--text-secondary-color);
+}
+
+/* Tooltip Style */
+.tooltip {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  z-index: 50;
+  pointer-events: none;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* Dark mode adjustments */
+.dark .body-outline {
+  stroke: var(--text-primary-color);
+}
+.dark .intensity-0 {
+  fill: #333333;
+}
+.dark .muscle-map-controls {
+  background-color: var(--md-background);
+  border-color: var(--border);
+}
+
+/* Remove this CSS rule that's styling the status bar */
+
