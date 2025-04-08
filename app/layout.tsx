@@ -36,7 +36,7 @@ export default function RootLayout({
       <body className="overflow-hidden">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <WorkoutProvider>
-            <div className="app-container h-screen flex flex-col pt-[env(safe-area-inset-top)]">{children}</div>
+            <div className="app-container h-screen flex flex-col">{children}</div>
           </WorkoutProvider>
         </ThemeProvider>
         {/* Add Font Awesome script */}

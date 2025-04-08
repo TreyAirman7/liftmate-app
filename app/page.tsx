@@ -462,7 +462,7 @@ export default function LiftMatePage() {
       {mounted && (
         <div className="flex flex-col h-screen">
           {/* App Header with animated text */}
-          <header className="app-header flex items-center justify-between p-4 text-white">
+          <header className="app-header flex items-center justify-between p-4 text-white pt-[env(safe-area-inset-top)]">
             <div className="flex items-center gap-2">
               <div className="h-12 w-12 flex items-center justify-center" aria-label="LiftMate">
                 <div className="w-[40px] h-[40px] flex items-center justify-between relative animate-[rotateDumbbell_2s_infinite_linear,bobDumbbell_1.8s_infinite_ease-in-out]">
