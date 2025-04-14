@@ -10,30 +10,60 @@ import React, {
 import { useThemeContext } from "@/components/theme-provider";
 import { themeColors } from "@/lib/theme-utils";
 
-interface MousePosition {
+interface PointerPosition {
   x: number;
   y: number;
 }
 
-function MousePosition(): MousePosition {
-  const [mousePosition, setMousePosition] = useState<MousePosition>({
+function usePointerPosition(): PointerPosition {
+  const [pointerPosition, setPointerPosition] = useState<PointerPosition>({
     x: 0,
     y: 0,
   });
+  
+  // Track last scroll position to create movement effect on scroll
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
+    // Handle mouse movement
     const handleMouseMove = (event: MouseEvent) => {
-      setMousePosition({ x: event.clientX, y: event.clientY });
+      setPointerPosition({ x: event.clientX, y: event.clientY });
+    };
+    
+    // Handle touch events for mobile devices
+    const handleTouchMove = (event: TouchEvent) => {
+      if (event.touches.length > 0) {
+        const touch = event.touches[0];
+        setPointerPosition({ x: touch.clientX, y: touch.clientY });
+      }
+    };
+    
+    // Handle scroll events to create movement on scroll
+    const handleScroll = () => {
+      const scrollDiff = window.scrollY - lastScrollY.current;
+      lastScrollY.current = window.scrollY;
+      
+      // Create horizontal movement based on scroll direction
+      setPointerPosition(prev => ({
+        x: prev.x + scrollDiff * 0.5,
+        y: window.scrollY + window.innerHeight / 2
+      }));
     };
 
+    // Add all event listeners
     window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("touchmove", handleTouchMove);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
+      // Remove all event listeners on cleanup
       window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  return mousePosition;
+  return pointerPosition;
 }
 
 interface ParticlesProps extends ComponentPropsWithoutRef<"div"> {
@@ -95,7 +125,7 @@ export const Particles: React.FC<ParticlesProps> = ({
   const canvasContainerRef = useRef<HTMLDivElement>(null);
   const context = useRef<CanvasRenderingContext2D | null>(null);
   const circles = useRef<Circle[]>([]);
-  const mousePosition = MousePosition();
+  const pointerPosition = usePointerPosition();
   const mouse = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const canvasSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 });
   const dpr = typeof window !== "undefined" ? window.devicePixelRatio : 1;
@@ -138,7 +168,7 @@ export const Particles: React.FC<ParticlesProps> = ({
 
   useEffect(() => {
     onMouseMove();
-  }, [mousePosition.x, mousePosition.y]);
+  }, [pointerPosition.x, pointerPosition.y]);
 
   useEffect(() => {
     initCanvas();
@@ -153,8 +183,8 @@ export const Particles: React.FC<ParticlesProps> = ({
     if (canvasRef.current) {
       const rect = canvasRef.current.getBoundingClientRect();
       const { w, h } = canvasSize.current;
-      const x = mousePosition.x - rect.left - w / 2;
-      const y = mousePosition.y - rect.top - h / 2;
+      const x = pointerPosition.x - rect.left - w / 2;
+      const y = pointerPosition.y - rect.top - h / 2;
       const inside = x < w / 2 && x > -w / 2 && y < h / 2 && y > -h / 2;
       if (inside) {
         mouse.current.x = x;
@@ -310,7 +340,7 @@ const rgb = hexToRgb(particleColor);
 
   return (
     <div
-      className={cn("pointer-events-none fixed inset-0 z-0", className)}
+      className={cn("fixed inset-0 z-0", className)}
       ref={canvasContainerRef}
       aria-hidden="true"
       {...props}
