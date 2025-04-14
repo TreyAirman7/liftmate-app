@@ -155,7 +155,7 @@ export default function GoalsTab() {
                     <div>
                       {goal.type === "exercise" && (
                         <>
-                          <h4 className="font-medium">{goal.exercise}</h4>
+                          <h4 className="font-medium">{goal.exercise?.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</h4>
                           <p className="text-sm text-muted-foreground">Exercise Goal</p>
                         </>
                       )}
@@ -215,7 +215,7 @@ export default function GoalsTab() {
                     <div>
                       {goal.type === "exercise" && (
                         <>
-                          <h4 className="font-medium">{goal.exercise}</h4>
+                          <h4 className="font-medium">{goal.exercise?.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</h4>
                           <p className="text-sm text-muted-foreground">Exercise Goal</p>
                         </>
                       )}

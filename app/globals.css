@@ -383,7 +383,6 @@ body {
   /* Add this to ensure the app takes up the full screen */
   position: fixed;
 }
-
 /* App container with background patterns */
 .app-container {
   position: fixed;
@@ -397,6 +396,9 @@ body {
   /* Add these properties to ensure full-screen mode */
   position: fixed;
   z-index: 1;
+  /* Add gradient background for light mode - with higher opacity for better visibility */
+  background-image: radial-gradient(circle at 10% 10%, rgba(var(--md-primary-rgb), 0.15) 0%, transparent 30%),
+    radial-gradient(circle at 90% 90%, rgba(var(--md-primary-rgb), 0.15) 0%, transparent 30%);
 }
 
 .dark .app-container {

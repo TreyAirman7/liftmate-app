@@ -427,8 +427,69 @@ export default function WorkoutLogger({ template, onComplete, onCancel }: Workou
   if (isResting) {
     return (
       <div className="min-h-screen bg-background text-foreground flex flex-col"> {/* Use theme background/foreground */}
-        {/* Header */}
-        <div className="p-4" style={{ backgroundColor: themeColor === "default" ? "#FFA500" : "var(--md-primary)" }}>
+        {/* Header with Cancel Button */}
+        <div className="p-4 flex items-center" style={{ backgroundColor: themeColor === "default" ? "#FFA500" : "var(--md-primary)" }}>
+          <button
+            onClick={() => {
+              // Confirm before exiting if there's progress
+              const hasProgress = Object.values(completedSets).some(sets => sets.length > 0);
+              if (hasProgress) {
+                if (window.confirm("Do you want to save your progress before exiting?")) {
+                  // Save workout progress
+                  try {
+                    const endTime = new Date();
+                    const durationInSeconds = Math.floor((endTime.getTime() - workoutStartTime.getTime()) / 1000);
+                    
+                    // Create partial workout object
+                    const partialWorkout: CompletedWorkout & { isPartial: boolean } = {
+                      id: DataManager.generateId(),
+                      date: selectedWorkoutDate.toISOString(),
+                      duration: durationInSeconds,
+                      templateId: template.id,
+                      templateName: template.name,
+                      exercises: template.exercises
+                        .map((exercise) => ({
+                          exerciseId: exercise.exerciseId,
+                          exerciseName: exercise.exerciseName,
+                          sets: completedSets[exercise.exerciseId] || [],
+                        }))
+                        .filter((exercise) => exercise.sets.length > 0),
+                      isPartial: true, // Mark as partial workout
+                    };
+                    
+                    // Calculate stats
+                    const totalVolume = Object.values(completedSets)
+                      .flat()
+                      .reduce((total, set) => total + set.weight * set.reps, 0);
+                    
+                    const totalSets = Object.values(completedSets).reduce((total, sets) => total + sets.length, 0);
+                    
+                    partialWorkout.stats = {
+                      totalVolume,
+                      totalSets,
+                      completedExercises: Object.entries(completedSets).filter(([_, sets]) => sets.length > 0).length,
+                      averageWeight: totalSets > 0 ? Math.round(totalVolume / totalSets) : 0,
+                    };
+                    
+                    // Save partial workout
+                    DataManager.saveWorkout(partialWorkout);
+                    showSuccessToast("Workout progress saved");
+                  } catch (error) {
+                    console.error("Failed to save workout progress:", error);
+                    showErrorToast("Failed to save workout progress");
+                  }
+                }
+              }
+              // Exit workout
+              onCancel();
+            }}
+            className="mr-3 text-white hover:bg-white/20 p-1 rounded-full"
+            aria-label="Cancel workout"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+          </button>
           <h1 className="text-2xl font-bold text-white">{template.name}</h1>
         </div>
 
@@ -660,7 +721,70 @@ export default function WorkoutLogger({ template, onComplete, onCancel }: Workou
           className="p-4 flex items-center justify-between shadow-md"
           style={{ backgroundColor: themeColor === "default" ? "#FFA500" : "var(--md-primary)" }}
         >
-          <h1 className="text-2xl font-bold text-white">{template.name}</h1>
+          <div className="flex items-center">
+            <button
+              onClick={() => {
+                // Confirm before exiting if there's progress
+                const hasProgress = Object.values(completedSets).some(sets => sets.length > 0);
+                if (hasProgress) {
+                  if (window.confirm("Do you want to save your progress before exiting?")) {
+                    // Save workout progress
+                    try {
+                      const endTime = new Date();
+                      const durationInSeconds = Math.floor((endTime.getTime() - workoutStartTime.getTime()) / 1000);
+                      
+                      // Create partial workout object
+                      const partialWorkout: CompletedWorkout & { isPartial: boolean } = {
+                        id: DataManager.generateId(),
+                        date: selectedWorkoutDate.toISOString(),
+                        duration: durationInSeconds,
+                        templateId: template.id,
+                        templateName: template.name,
+                        exercises: template.exercises
+                          .map((exercise) => ({
+                            exerciseId: exercise.exerciseId,
+                            exerciseName: exercise.exerciseName,
+                            sets: completedSets[exercise.exerciseId] || [],
+                          }))
+                          .filter((exercise) => exercise.sets.length > 0),
+                        isPartial: true, // Mark as partial workout
+                      };
+                      
+                      // Calculate stats
+                      const totalVolume = Object.values(completedSets)
+                        .flat()
+                        .reduce((total, set) => total + set.weight * set.reps, 0);
+                      
+                      const totalSets = Object.values(completedSets).reduce((total, sets) => total + sets.length, 0);
+                      
+                      partialWorkout.stats = {
+                        totalVolume,
+                        totalSets,
+                        completedExercises: Object.entries(completedSets).filter(([_, sets]) => sets.length > 0).length,
+                        averageWeight: totalSets > 0 ? Math.round(totalVolume / totalSets) : 0,
+                      };
+                      
+                      // Save partial workout
+                      DataManager.saveWorkout(partialWorkout);
+                      showSuccessToast("Workout progress saved");
+                    } catch (error) {
+                      console.error("Failed to save workout progress:", error);
+                      showErrorToast("Failed to save workout progress");
+                    }
+                  }
+                }
+                // Exit workout
+                onCancel();
+              }}
+              className="mr-3 text-white hover:bg-white/20 p-1 rounded-full"
+              aria-label="Cancel workout"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+            </button>
+            <h1 className="text-2xl font-bold text-white">{template.name}</h1>
+          </div>
           <div className="text-white text-sm bg-black bg-opacity-20 px-3 py-1 rounded-full">{workoutDuration} min</div>
         </div>
 
@@ -853,9 +977,72 @@ export default function WorkoutLogger({ template, onComplete, onCancel }: Workou
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col"> {/* Use theme background/foreground */}
-      {/* Header with Date Picker */}
+      {/* Header with Date Picker and Cancel Button */}
       <div className="p-4 flex justify-between items-center" style={{ backgroundColor: themeColor === "default" ? "#FFA500" : "var(--md-primary)" }}>
-        <h1 className="text-xl md:text-2xl font-bold text-white">{template.name}</h1>
+        <div className="flex items-center">
+          <button
+            onClick={() => {
+              // Confirm before exiting if there's progress
+              const hasProgress = Object.values(completedSets).some(sets => sets.length > 0);
+              if (hasProgress) {
+                if (window.confirm("Do you want to save your progress before exiting?")) {
+                  // Save workout progress
+                  try {
+                    const endTime = new Date();
+                    const durationInSeconds = Math.floor((endTime.getTime() - workoutStartTime.getTime()) / 1000);
+                    
+                    // Create partial workout object with proper type
+                    const partialWorkout: CompletedWorkout & { isPartial: boolean } = {
+                      id: DataManager.generateId(),
+                      date: selectedWorkoutDate.toISOString(),
+                      duration: durationInSeconds,
+                      templateId: template.id,
+                      templateName: template.name,
+                      exercises: template.exercises
+                        .map((exercise) => ({
+                          exerciseId: exercise.exerciseId,
+                          exerciseName: exercise.exerciseName,
+                          sets: completedSets[exercise.exerciseId] || [],
+                        }))
+                        .filter((exercise) => exercise.sets.length > 0),
+                      isPartial: true, // Mark as partial workout
+                    };
+                    
+                    // Calculate stats
+                    const totalVolume = Object.values(completedSets)
+                      .flat()
+                      .reduce((total, set) => total + set.weight * set.reps, 0);
+                    
+                    const totalSets = Object.values(completedSets).reduce((total, sets) => total + sets.length, 0);
+                    
+                    partialWorkout.stats = {
+                      totalVolume,
+                      totalSets,
+                      completedExercises: Object.entries(completedSets).filter(([_, sets]) => sets.length > 0).length,
+                      averageWeight: totalSets > 0 ? Math.round(totalVolume / totalSets) : 0,
+                    };
+                    
+                    // Save partial workout
+                    DataManager.saveWorkout(partialWorkout);
+                    showSuccessToast("Workout progress saved");
+                  } catch (error) {
+                    console.error("Failed to save workout progress:", error);
+                    showErrorToast("Failed to save workout progress");
+                  }
+                }
+              }
+              // Exit workout
+              onCancel();
+            }}
+            className="mr-3 text-white hover:bg-white/20 p-1 rounded-full"
+            aria-label="Cancel workout"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+          </button>
+          <h1 className="text-xl md:text-2xl font-bold text-white">{template.name}</h1>
+        </div>
         <Popover>
           <PopoverTrigger asChild>
             <Button

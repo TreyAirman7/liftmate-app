@@ -13,9 +13,9 @@ try {
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export', // Commented out for local dev
-  basePath: '/liftmate-app',
-  assetPrefix: '/liftmate-app',
+  output: process.env.NODE_ENV === 'production' ? 'export' : undefined,
+  basePath: process.env.NODE_ENV === 'production' ? '/liftmate-app' : '',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/liftmate-app' : '',
   eslint: {
     ignoreDuringBuilds: true,
   },

@@ -3,6 +3,7 @@ import "@/app/globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { WorkoutProvider } from "@/lib/workout-context";
 import Script from "next/script";
+import { Particles } from "@/components/ui/particles";
 
 export const metadata = {
   title: "LiftMate - Fitness Tracking",
@@ -37,7 +38,15 @@ export default function RootLayout({
       <body className="overflow-hidden">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <WorkoutProvider>
-            <div className="app-container h-screen flex flex-col">{children}</div>
+            {/* Particles background effect */}
+            <Particles
+              className="fixed inset-0 z-0"
+              quantity={100}
+              staticity={30}
+              ease={50}
+              size={0.5}
+            />
+            <div className="app-container h-screen flex flex-col relative z-10">{children}</div>
           </WorkoutProvider>
         </ThemeProvider>
         {/* Add Font Awesome script */}

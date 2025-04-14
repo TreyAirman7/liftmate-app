@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useThemeContext } from "@/components/theme-provider"
 import { TrendingUp, Weight, Plus } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -18,6 +19,7 @@ interface WeightEntry {
 }
 
 export default function ProgressTab() {
+  const { themeColor } = useThemeContext()
   const [selectedExercise, setSelectedExercise] = useState("")
   const [selectedTimeframe, setSelectedTimeframe] = useState("3m")
   const [selectedRepRange, setSelectedRepRange] = useState("all")
@@ -342,7 +344,7 @@ export default function ProgressTab() {
                           <Line
                             type="monotone"
                             dataKey="weight"
-                            stroke="#0D9488"
+                            stroke={themeColor === "default" ? "#FFA500" : "var(--md-primary)"}
                             strokeWidth={2}
                             dot={{ r: 4 }}
                             activeDot={{ r: 6 }}
@@ -427,7 +429,7 @@ export default function ProgressTab() {
                           <Line
                             type="monotone"
                             dataKey="weight"
-                            stroke="#0D9488"
+                            stroke={themeColor === "default" ? "#FFA500" : "var(--md-primary)"}
                             strokeWidth={2}
                             dot={{ r: 4 }}
                             activeDot={{ r: 6 }}

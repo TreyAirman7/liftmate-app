@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react" // Combined imports
+import { useThemeContext } from "@/components/theme-provider"
 import { motion, animate } from "framer-motion"
 import { BarChart2, PieChart, TrendingUp, Calendar } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -60,7 +61,124 @@ function calculateTotalVolume(workout: CompletedWorkout): number {
 
 
 export default function StatsTab() { // Added export default back
-  const { workouts } = useWorkouts()
+  const { themeColor } = useThemeContext()
+  const { workouts: originalWorkouts } = useWorkouts()
+  // Add some sample workout data for testing if there are no workouts
+  // Add some debug logging to see what workouts we're using
+  console.log("Original workouts:", originalWorkouts);
+  
+  // Create a date for the 13th (for testing)
+  const date13 = new Date();
+  date13.setDate(13); // Set to the 13th of current month
+  date13.setHours(0, 0, 0, 0); // Normalize time
+  
+  // Create a date for the 14th (for testing)
+  const date14 = new Date();
+  date14.setDate(14); // Set to the 14th of current month
+  date14.setHours(0, 0, 0, 0); // Normalize time
+  
+  const workouts = originalWorkouts.length > 0 ? originalWorkouts : [
+    {
+      id: "sample1",
+      date: new Date().toISOString(), // Today
+      duration: 3600,
+      templateId: "template1",
+      templateName: "Sample Workout",
+      exercises: [
+        {
+          exerciseId: "ex1",
+          exerciseName: "Bench Press",
+          sets: [
+            { weight: 135, reps: 10, timestamp: new Date().toISOString() },
+            { weight: 155, reps: 8, timestamp: new Date().toISOString() },
+            { weight: 175, reps: 6, timestamp: new Date().toISOString() }
+          ]
+        }
+      ],
+      stats: {
+        totalVolume: 3000,
+        totalSets: 3,
+        completedExercises: 1,
+        averageWeight: 155
+      }
+    },
+    {
+      id: "sample2",
+      date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 days ago
+      duration: 4500,
+      templateId: "template2",
+      templateName: "Sample Workout 2",
+      exercises: [
+        {
+          exerciseId: "ex2",
+          exerciseName: "Squat",
+          sets: [
+            { weight: 185, reps: 8, timestamp: new Date().toISOString() },
+            { weight: 205, reps: 6, timestamp: new Date().toISOString() },
+            { weight: 225, reps: 4, timestamp: new Date().toISOString() }
+          ]
+        }
+      ],
+      stats: {
+        totalVolume: 4000,
+        totalSets: 3,
+        completedExercises: 1,
+        averageWeight: 205
+      }
+    },
+    {
+      id: "sample3",
+      date: date13.toISOString(), // 13th of current month
+      duration: 3000,
+      templateId: "template3",
+      templateName: "Sample Workout 3",
+      exercises: [
+        {
+          exerciseId: "ex3",
+          exerciseName: "Deadlift",
+          sets: [
+            { weight: 225, reps: 5, timestamp: date13.toISOString() },
+            { weight: 245, reps: 5, timestamp: date13.toISOString() },
+            { weight: 265, reps: 5, timestamp: date13.toISOString() }
+          ]
+        }
+      ],
+      stats: {
+        totalVolume: 3675,
+        totalSets: 3,
+        completedExercises: 1,
+        averageWeight: 245
+      }
+    },
+    {
+      id: "sample4",
+      date: date14.toISOString(), // 14th of current month
+      duration: 2700,
+      templateId: "template4",
+      templateName: "Sample Workout 4",
+      exercises: [
+        {
+          exerciseId: "ex4",
+          exerciseName: "Overhead Press",
+          sets: [
+            { weight: 95, reps: 8, timestamp: date14.toISOString() },
+            { weight: 105, reps: 6, timestamp: date14.toISOString() },
+            { weight: 115, reps: 4, timestamp: date14.toISOString() }
+          ]
+        }
+      ],
+      stats: {
+        totalVolume: 1750,
+        totalSets: 3,
+        completedExercises: 1,
+        averageWeight: 105
+      }
+    }
+  ];
+  
+  // Log the final workouts array
+  console.log("Final workouts:", workouts);
+  
   const [timeRange, setTimeRange] = useState("all")
   const [volumeData, setVolumeData] = useState<any[]>([])
   const [muscleDistribution, setMuscleDistribution] = useState<{ [key: string]: number }>({})
@@ -301,7 +419,7 @@ export default function StatsTab() { // Added export default back
                           return null
                         }}
                       />
-                      <Bar dataKey="volume" fill="#0D9488" isAnimationActive={true} animationDuration={500} />
+                      <Bar dataKey="volume" fill={themeColor === "default" ? "#FFA500" : "var(--md-primary)"} isAnimationActive={true} animationDuration={500} />
                     </BarChart>
                   </ResponsiveContainer>
                 </ChartContainer>
@@ -346,7 +464,7 @@ export default function StatsTab() { // Added export default back
         {/* Muscle Heatmap */}
         <MuscleHeatmap workoutData={workouts} className="mt-6" />
 
-        {/* Activity Heatmap */}
+        {/* Workout Activity Calendar */}
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-lg flex items-center">
@@ -355,48 +473,166 @@ export default function StatsTab() { // Added export default back
             </CardTitle>
           </CardHeader>
           <CardContent className="p-4">
-            <div className="grid grid-cols-7 gap-1 text-center text-xs mb-1">
-              <div>M</div>
-              <div>T</div>
-              <div>W</div>
-              <div>T</div>
-              <div>F</div>
-              <div>S</div>
-              <div>S</div>
-            </div>
-            <div className="grid grid-cols-7 gap-1">
-              {Array.from({ length: 28 }).map((_, i) => {
-                // Generate activity levels based on actual workout data
-                let activityLevel = 0
-
-                if (workouts.length > 0) {
-                  const now = new Date()
-                  const date = new Date()
-                  date.setDate(now.getDate() - (28 - i))
-
-                  // Check if there's a workout on this date
-                  const hasWorkout = workouts.some((workout) => {
-                    const workoutDate = new Date(workout.date)
-                    return (
-                      workoutDate.getDate() === date.getDate() &&
-                      workoutDate.getMonth() === date.getMonth() &&
-                      workoutDate.getFullYear() === date.getFullYear()
-                    )
-                  })
-
-                  if (hasWorkout) {
-                    activityLevel = Math.floor(Math.random() * 3) + 1 // 1, 2, or 3
+            <div className="flex flex-col space-y-2">
+              {/* Calendar Header - Days of Week */}
+              <div className="grid grid-cols-7 gap-1.5 text-center text-xs font-medium mb-1">
+                <div>M</div>
+                <div>T</div>
+                <div>W</div>
+                <div>T</div>
+                <div>F</div>
+                <div>S</div>
+                <div>S</div>
+              </div>
+              
+              {/* Calendar Grid */}
+              <div className="grid grid-cols-7 gap-1.5">
+                {Array.from({ length: 28 }).map((_, i) => {
+                  // Calculate the date for this cell (from 27 days ago to today)
+                  const now = new Date();
+                  const date = new Date(now);
+                  date.setHours(0, 0, 0, 0); // Normalize time to start of day
+                  date.setDate(now.getDate() - 27 + i);
+                  
+                  // Format date for display and comparison
+                  const dateStr = date.toISOString().split('T')[0];
+                  const isToday = new Date(now.setHours(0, 0, 0, 0)).getTime() === date.getTime();
+                  
+                  // Find workouts on this date
+                  console.log(`Checking date: ${dateStr} (${date.toDateString()})`);
+                  
+                  const workoutsOnDate = workouts.filter((workout) => {
+                    const workoutDate = new Date(workout.date);
+                    workoutDate.setHours(0, 0, 0, 0); // Normalize time to start of day
+                    
+                    // Log each workout date for comparison
+                    console.log(`  Workout date: ${workoutDate.toISOString().split('T')[0]} (${workoutDate.toDateString()})`);
+                    console.log(`  Date comparison: ${workoutDate.getTime() === date.getTime()}`);
+                    
+                    // Try different comparison methods
+                    const isSameDate = workoutDate.getTime() === date.getTime();
+                    const isSameDateString = workoutDate.toISOString().split('T')[0] === dateStr;
+                    
+                    console.log(`  Comparison results - Time: ${isSameDate}, String: ${isSameDateString}`);
+                    
+                    // Use string comparison as a fallback
+                    return isSameDate || isSameDateString;
+                  });
+                  
+                  // Log the results
+                  console.log(`  Found ${workoutsOnDate.length} workouts for ${dateStr}`);
+                  
+                  // Calculate activity level based on workouts and volume
+                  let activityLevel = 0;
+                  let totalVolume = 0;
+                  
+                  if (workoutsOnDate.length > 0) {
+                    // Calculate total volume for all workouts on this date
+                    totalVolume = workoutsOnDate.reduce((sum, workout) => {
+                      if (workout.stats?.totalVolume) {
+                        return sum + workout.stats.totalVolume;
+                      }
+                      
+                      return sum + calculateTotalVolume(workout);
+                    }, 0);
+                    
+                    // Set activity level based on volume
+                    if (totalVolume > 5000) {
+                      activityLevel = 3; // High intensity
+                    } else if (totalVolume > 2000) {
+                      activityLevel = 2; // Medium intensity
+                    } else {
+                      activityLevel = 1; // Low intensity
+                    }
                   }
-                }
-
-                let bgColor = "bg-gray-100 dark:bg-gray-800"
-
-                if (activityLevel === 1) bgColor = "bg-teal-200 dark:bg-teal-900"
-                if (activityLevel === 2) bgColor = "bg-teal-400 dark:bg-teal-700"
-                if (activityLevel === 3) bgColor = "bg-teal-600 dark:bg-teal-500"
-
-                return <div key={i} className={`${bgColor} w-full aspect-square rounded-sm`} />
-              })}
+                  
+                  // Determine cell styling based on activity level and theme
+                  let cellClasses = "relative flex items-center justify-center w-full aspect-square rounded-md transition-all duration-200";
+                  
+                  // Base style for all cells (empty days)
+                  let bgColorClass = "bg-gray-100 dark:bg-gray-800";
+                  
+                  // Log the activity level for this date
+                  console.log(`  Activity level for ${dateStr}: ${activityLevel}`);
+                  
+                  // Apply color based on activity level - using more vibrant colors
+                  if (activityLevel === 1) {
+                    bgColorClass = themeColor === "default"
+                      ? "bg-orange-300 dark:bg-orange-700"
+                      : "bg-primary/40 dark:bg-primary/70";
+                  } else if (activityLevel === 2) {
+                    bgColorClass = themeColor === "default"
+                      ? "bg-orange-500 dark:bg-orange-500"
+                      : "bg-primary/60 dark:bg-primary/50";
+                  } else if (activityLevel === 3) {
+                    bgColorClass = themeColor === "default"
+                      ? "bg-orange-700 dark:bg-orange-400"
+                      : "bg-primary/80 dark:bg-primary/40";
+                  }
+                  
+                  // Log the background color class being applied
+                  console.log(`  Background color class for ${dateStr}: ${bgColorClass}`);
+                  
+                  // Add today indicator
+                  const todayClass = isToday
+                    ? "ring-2 ring-offset-2 ring-primary dark:ring-primary"
+                    : "";
+                  
+                  // Get day number
+                  const dayNumber = date.getDate();
+                  
+                  return (
+                    <div
+                      key={i}
+                      className={`${cellClasses} ${bgColorClass} ${todayClass} group hover:scale-105`}
+                      title={`${dateStr}: ${workoutsOnDate.length} workout(s), ${totalVolume.toLocaleString()} volume`}
+                    >
+                      {/* Day number - small and subtle */}
+                      <span className="absolute top-1 left-1 text-[0.65rem] text-muted-foreground">
+                        {dayNumber}
+                      </span>
+                      
+                      {/* Workout indicator */}
+                      {workoutsOnDate.length > 0 && (
+                        <div className="absolute bottom-1 right-1 flex space-x-0.5">
+                          {Array.from({ length: Math.min(workoutsOnDate.length, 3) }).map((_, j) => (
+                            <div
+                              key={j}
+                              className={`h-2 w-2 rounded-full ${
+                                themeColor === "default"
+                                  ? "bg-orange-500 dark:bg-orange-400"
+                                  : "bg-primary dark:bg-primary"
+                              }`}
+                            />
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+              
+              {/* Legend */}
+              <div className="flex items-center justify-between pt-2 text-xs text-muted-foreground">
+                <div className="flex items-center space-x-1">
+                  <div className="h-3 w-3 rounded-sm bg-gray-100 dark:bg-gray-800" />
+                  <span>No workout</span>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <div className="flex items-center space-x-1">
+                    <div className={`h-3 w-3 rounded-sm ${themeColor === "default" ? "bg-orange-300 dark:bg-orange-700" : "bg-primary/40 dark:bg-primary/70"}`} />
+                    <span>Light</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <div className={`h-3 w-3 rounded-sm ${themeColor === "default" ? "bg-orange-500 dark:bg-orange-500" : "bg-primary/60 dark:bg-primary/50"}`} />
+                    <span>Medium</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <div className={`h-3 w-3 rounded-sm ${themeColor === "default" ? "bg-orange-700 dark:bg-orange-400" : "bg-primary/80 dark:bg-primary/40"}`} />
+                    <span>Intense</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>
