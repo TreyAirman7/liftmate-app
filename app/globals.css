@@ -20,12 +20,14 @@
 .typing-text.animate-complete {
   width: 100%;
   border-right-color: transparent;
-  transform: scale(1.25) translateX(8px);
+  transform: scale(1.25) translate(8px, 8px);
   color: #fff;
   animation: powerPulse 2s ease-in-out forwards;
   letter-spacing: 1px;
   position: relative;
   transition: transform 0.6s ease-out;
+  margin-left: 4px;
+  padding-top: 4px;
 }
 
 /* Wiggle animation - added through JS */
@@ -73,16 +75,16 @@
 /* Power pulse effect - creates a subtle "power up" impression */
 @keyframes powerPulse {
   0% {
-    transform: scale(1.25) translateX(8px);
+    transform: scale(1.25) translate(8px, 8px);
     text-shadow: 0 0 3px rgba(255, 255, 255, 0.7);
   }
   50% {
-    transform: scale(1.35) translateX(10px);
+    transform: scale(1.35) translate(10px, 9px);
     filter: brightness(1.2);
     text-shadow: 0 0 3px rgba(255, 255, 255, 0.7);
   }
   100% {
-    transform: scale(1.25) translateX(8px);
+    transform: scale(1.25) translate(8px, 8px);
     filter: brightness(1);
     text-shadow: none;
   }
@@ -405,7 +407,6 @@ body {
   background-image: radial-gradient(circle at 10% 10%, rgba(var(--md-primary-rgb), 0.15) 0%, transparent 30%),
     radial-gradient(circle at 90% 90%, rgba(var(--md-primary-rgb), 0.15) 0%, transparent 30%);
 }
-
 /* App header styling */
 .app-header {
   position: sticky;
@@ -420,6 +421,11 @@ body {
   /* Add this to ensure the header is at the very top in full-screen mode */
   position: relative;
   z-index: 10;
+}
+
+/* Dumbbell icon positioning */
+.app-header .h-12.w-12 {
+  transform: translateY(8px);
 }
 
 .dark .app-header {
