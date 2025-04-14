@@ -14,8 +14,8 @@ try {
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export', // Commented out for local dev
-  // basePath: '/liftmate-app', // Commented out for local dev
-  // assetPrefix: '/liftmate-app', // Commented out for local dev
+  basePath: '/liftmate-app',
+  assetPrefix: '/liftmate-app',
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -23,7 +23,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   // images: {
-  //   unoptimized: true, // Commented out for local dev
+    unoptimized: true,
   // },
   experimental: {
     webpackBuildWorker: true,
