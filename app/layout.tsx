@@ -8,6 +8,7 @@ export const metadata = {
   title: "LiftMate - Fitness Tracking",
   description: "Track your workouts and fitness progress",
   generator: "v0.dev",
+  manifest: '/manifest.json',
 };
 
 export default function RootLayout({
@@ -19,7 +20,6 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>{/* Ensure no whitespace here */}
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
-        <link rel="manifest" href="/manifest.json" />
         {/* PWA Tags for Add to Home Screen */}
         <meta name="mobile-web-app-capable" content="yes" />{/* Standard */}
         <meta name="apple-mobile-web-app-capable" content="yes" />{/* Apple specific */}
