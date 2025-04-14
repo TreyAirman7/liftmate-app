@@ -13,7 +13,7 @@ try {
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // output: 'export', // Commented out for local dev
+  output: 'export', // Commented out for local dev
   // basePath: '/liftmate-app', // Commented out for local dev
   // assetPrefix: '/liftmate-app', // Commented out for local dev
   eslint: {
