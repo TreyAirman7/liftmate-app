@@ -340,26 +340,25 @@ export default function StatsTab() { // Added export default back
       <div className="w-full max-w-md space-y-6">
         {/* Time Range Filter */}
         <div className="flex justify-end">
-          <Select
-            defaultValue={timeRange}
-            onValueChange={(value) => {
-              // Only update if the value actually changed
-              if (value !== timeRange) {
-                setTimeRange(value);
-              }
-            }}
-          >
-            <SelectTrigger className="w-32">
-              <SelectValue placeholder="Time Range" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Time</SelectItem>
-              <SelectItem value="week">Last Week</SelectItem>
-              <SelectItem value="month">Last Month</SelectItem>
-              <SelectItem value="3months">3 Months</SelectItem>
-              <SelectItem value="6months">6 Months</SelectItem>
-            </SelectContent>
-          </Select>
+          {/* Replace the problematic Select component with a simple HTML select */}
+          <div className="relative w-32">
+            <select
+              className="w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 appearance-none"
+              value={timeRange}
+              onChange={(e) => setTimeRange(e.target.value)}
+            >
+              <option value="all">All Time</option>
+              <option value="week">Last Week</option>
+              <option value="month">Last Month</option>
+              <option value="3months">3 Months</option>
+              <option value="6months">6 Months</option>
+            </select>
+            <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 opacity-50">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </div>
+          </div>
         </div>
 
         {/* Summary Cards */}
