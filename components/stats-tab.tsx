@@ -340,7 +340,15 @@ export default function StatsTab() { // Added export default back
       <div className="w-full max-w-md space-y-6">
         {/* Time Range Filter */}
         <div className="flex justify-end">
-          <Select value={timeRange} onValueChange={setTimeRange}>
+          <Select
+            defaultValue={timeRange}
+            onValueChange={(value) => {
+              // Only update if the value actually changed
+              if (value !== timeRange) {
+                setTimeRange(value);
+              }
+            }}
+          >
             <SelectTrigger className="w-32">
               <SelectValue placeholder="Time Range" />
             </SelectTrigger>
