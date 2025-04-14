@@ -13,18 +13,18 @@ try {
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export', // Enable static export for GitHub Pages
-  basePath: '/liftmate-app', // Set base path to repository name
-  assetPrefix: '/liftmate-app', // Set asset prefix to repository name
+  // output: 'export', // Commented out for local dev
+  // basePath: '/liftmate-app', // Commented out for local dev
+  // assetPrefix: '/liftmate-app', // Commented out for local dev
   eslint: {
     ignoreDuringBuilds: true,
   },
   typescript: {
     ignoreBuildErrors: true,
   },
-  images: {
-    unoptimized: true,
-  },
+  // images: {
+  //   unoptimized: true, // Commented out for local dev
+  // },
   experimental: {
     webpackBuildWorker: true,
     parallelServerBuildTraces: true,

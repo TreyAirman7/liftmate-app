@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "gen-lang-client-0688351676"
+  },
+  "targets": {
+    "gen-lang-client-0688351676": {
+      "hosting": {
+        "hosting": [
+          "hosting"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

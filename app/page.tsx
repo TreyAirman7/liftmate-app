@@ -2,6 +2,9 @@
 
 import type React from "react"
 
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+
 import { useState, useEffect, useRef, useCallback } from "react"
 import { Dumbbell, BarChart2, TrendingUp, Clipboard, Clock, Target, Image, Database } from "lucide-react"
 import { useTheme } from "next-themes"
@@ -29,6 +32,21 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import PhotoStorage from "@/lib/photo-storage"
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+// Initialize Firestore
+const db = getFirestore(app);
 
 // Add dumbbell animation
 const dumbbellAnimationStyle = `

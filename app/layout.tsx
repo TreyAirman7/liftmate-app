@@ -1,27 +1,28 @@
-import type { ReactNode } from "react"
-import "@/app/globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-import { WorkoutProvider } from "@/lib/workout-context"
-import Script from "next/script"
+import type { ReactNode } from "react";
+import "@/app/globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
+import { WorkoutProvider } from "@/lib/workout-context";
+import Script from "next/script";
 
 export const metadata = {
   title: "LiftMate - Fitness Tracking",
   description: "Track your workouts and fitness progress",
-  generator: "v0.dev"
-}
+  generator: "v0.dev",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: ReactNode
+  children: ReactNode;
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
+      <head>{/* Ensure no whitespace here */}
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
         <link rel="manifest" href="/manifest.json" />
-        {/* Apple PWA Tags for Add to Home Screen */}
-        <meta name="apple-mobile-web-app-capable" content="yes" />
+        {/* PWA Tags for Add to Home Screen */}
+        <meta name="mobile-web-app-capable" content="yes" />{/* Standard */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />{/* Apple specific */}
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="LiftMate" />
         {/* Add Font Awesome for the loading icons */}
@@ -31,7 +32,7 @@ export default function RootLayout({
           integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
-        />
+        />{/* Ensure no whitespace here */}
       </head>
       <body className="overflow-hidden">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
@@ -49,5 +50,5 @@ export default function RootLayout({
         />
       </body>
     </html>
-  )
+  );
 }

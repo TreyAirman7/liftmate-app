@@ -73,7 +73,7 @@ export default function TemplateSelector({ onSelectTemplate, onCancel }: Templat
     <div className="min-h-screen bg-background text-foreground">
       {/* Header */}
       <div className="p-4 bg-primary text-primary-foreground flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Workout Templates</h1>
+        <h1 className="text-2xl font-bold text-white">Workout Templates</h1> {/* Added text-white */}
         <Button
           variant="ghost"
           size="icon"
@@ -195,4 +195,3 @@ export default function TemplateSelector({ onSelectTemplate, onCancel }: Templat
     </div>
   )
 }
-

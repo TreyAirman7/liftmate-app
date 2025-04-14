@@ -559,7 +559,7 @@ export default function TemplateCreator({
 
           <div className="p-4 max-h-[75vh] overflow-y-auto overscroll-contain">
             <div className="mb-6">
-              <label className={`text-sm font-medium mb-1 block ${nameError ? "text-destructive" : "text-white"}`}>
+              <label className={`text-sm font-medium mb-1 block text-black dark:text-white ${nameError ? "text-destructive dark:text-destructive" : ""}`}>
                 Template Name
               </label>
               <Input
@@ -569,25 +569,27 @@ export default function TemplateCreator({
                   setTemplateName(e.target.value)
                   if (e.target.value.trim()) setNameError(false)
                 }}
-                className="!bg-[#000000] text-white placeholder:text-gray-400 border-gray-700 [&:not(:focus)]:bg-[#000000] [&:focus]:bg-[#000000]"
+                className="!bg-[#000000] text-white placeholder:text-white dark:placeholder:text-gray-400 border-gray-700 [&:not(:focus)]:bg-[#000000] [&:focus]:bg-[#000000]"
               />
               {nameError && <p className="text-destructive text-xs mt-1">Please enter a template name</p>}
             </div>
 
             <div className="mb-6">
-              <label className="text-sm font-medium mb-1 block text-white">Description (Optional)</label>
+              <label className="text-sm font-medium mb-1 block text-black dark:text-white">Description (Optional)</label>
               <Textarea
                 placeholder="Add a description for your template"
                 value={templateDescription}
                 onChange={(e) => setTemplateDescription(e.target.value)}
-                className="!bg-[#000000] text-white placeholder:text-gray-400 border-gray-700 [&:not(:focus)]:bg-[#000000] [&:focus]:bg-[#000000]"
+                className="!bg-[#000000] text-white placeholder:text-white dark:placeholder:text-gray-400 border-gray-700 [&:not(:focus)]:bg-[#000000] [&:focus]:bg-[#000000]"
               />
             </div>
 
             <div className="mb-6">
-              <label className="text-sm font-medium mb-1 block text-white">Category (Optional)</label>
+              <label className="text-sm font-medium mb-1 block text-black dark:text-white">Category (Optional)</label>
               <Select value={templateCategory} onValueChange={handleCategoryChange}>
-                <SelectTrigger className="!bg-[#000000] text-white border-gray-700">
+                {/* Apply placeholder targeting to Trigger */}
+                <SelectTrigger className="!bg-[#000000] text-white data-[placeholder]:text-white border-gray-700">
+                  {/* Removed explicit className from SelectValue */}
                   <SelectValue placeholder="Select a category" />
                 </SelectTrigger>
                 <SelectContent className="bg-[#222222] border-gray-700">
@@ -606,13 +608,13 @@ export default function TemplateCreator({
                     placeholder="Enter custom category"
                     value={customCategory}
                     onChange={(e) => setCustomCategory(e.target.value)}
-                    className="!bg-[#000000] text-white placeholder:text-gray-400 border-gray-700"
+                    className="!bg-[#000000] text-white placeholder:text-white dark:placeholder:text-gray-400 border-gray-700"
                   />
                 </div>
               )}
             </div>
 
-            <h3 className="text-lg font-medium mb-4 text-white">Exercises</h3>
+            <h3 className="text-lg font-medium mb-4 text-black dark:text-white">Exercises</h3>
 
             <div className="max-h-[50vh] overflow-y-auto mb-6">
               {exercises.length === 0 ? (
@@ -681,4 +683,3 @@ export default function TemplateCreator({
     </>
   )
 }
-
