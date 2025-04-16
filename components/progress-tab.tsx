@@ -259,8 +259,12 @@ export default function ProgressTab() {
       <div className="w-full max-w-md">
         <Tabs defaultValue="strength" className="w-full">
           <TabsList className="grid grid-cols-2 mb-4">
-            <TabsTrigger value="strength">Strength</TabsTrigger>
-            <TabsTrigger value="weight">Body Weight</TabsTrigger>
+            <TabsTrigger value="strength">
+              <TrendingUp className="h-6 w-6 mx-auto" />
+            </TabsTrigger>
+            <TabsTrigger value="weight">
+              <Weight className="h-6 w-6 mx-auto" />
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="strength" className="space-y-4">

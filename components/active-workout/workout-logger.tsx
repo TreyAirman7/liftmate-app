@@ -1093,28 +1093,29 @@ export default function WorkoutLogger({ template, onComplete, onCancel }: Workou
         ></div>
       </div>
 
-      {/* Set navigation */}
+      {/* Set navigation (icons only, no text) */}
       <div className="flex justify-center mb-6">
         {currentExercise?.sets.map((_, index) => (
           <div
             key={index}
             className={`w-10 h-10 rounded-full flex items-center justify-center mx-1 ${
               index < currentSetIndex
-                ? "bg-secondary text-secondary-foreground" // Completed set
+                ? "bg-secondary text-secondary-foreground"
                 : index === currentSetIndex
-                  ? "" // Active set (uses inline style)
-                  : "bg-muted text-muted-foreground" // Upcoming set
+                  ? ""
+                  : "bg-muted text-muted-foreground"
             }`}
             style={
               index === currentSetIndex
                 ? {
-                    backgroundColor: themeColor === "default" ? "#FFA500" : "var(--md-primary)", // Keep theme color for active
-                    color: "var(--primary-foreground)", // Text color for active set number
+                    backgroundColor: themeColor === "default" ? "#FFA500" : "var(--md-primary)",
+                    color: "var(--primary-foreground)",
                   }
                 : {}
             }
           >
-            {index + 1}
+            {/* Replace set number with icon only */}
+            <Check className="h-6 w-6" />
           </div>
         ))}
       </div>

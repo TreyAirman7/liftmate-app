@@ -601,7 +601,7 @@ export default function LiftMatePage() {
               >
                 {activeTab === tab.id && <div className="absolute top-0 w-10 h-1 bg-primary rounded-full"></div>}
                 {tab.icon}
-                <span className="text-sm bottom-nav-text">{tab.label}</span>
+                {/* Removed text label for icon-only nav */}
               </button>
             ))}
           </nav>
