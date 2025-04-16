@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { WorkoutProvider } from "@/lib/workout-context";
 import Script from "next/script";
 import { Particles } from "@/components/ui/particles";
+import { DynamicThemeColor } from "@/components/dynamic-theme-color";
 
 export const metadata = {
   title: "LiftMate - Fitness Tracking",
@@ -24,6 +25,7 @@ export default function RootLayout({
         {/* PWA Tags for Add to Home Screen */}
         <meta name="mobile-web-app-capable" content="yes" />{/* Standard */}
         <meta name="apple-mobile-web-app-capable" content="yes" />{/* Apple specific */}
+        {/* Theme color is now handled dynamically by DynamicThemeColor component */}
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="LiftMate" />
         {/* Add Font Awesome for the loading icons */}
@@ -37,6 +39,7 @@ export default function RootLayout({
       </head>
       <body className="overflow-hidden">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <DynamicThemeColor />
           <WorkoutProvider>
             {/* Particles background effect */}
             <Particles
