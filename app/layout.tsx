@@ -44,7 +44,7 @@ export default function RootLayout({
               quantity={100}
               staticity={30}
               ease={50}
-              size={0.5}
+              size={1}
             />
             <div className="app-container h-screen flex flex-col relative z-10">{children}</div>
           </WorkoutProvider>
