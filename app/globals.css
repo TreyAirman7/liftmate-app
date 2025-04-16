@@ -1944,6 +1944,15 @@ button[class*="hover:bg-teal-"]:hover,
   color: var(--text-primary-color) !important;
 }
 
+@media only screen 
+  and (max-device-width: 430px) 
+  and (-webkit-device-pixel-ratio: 2) 
+  and (orientation: portrait) {
+  .bottom-nav-text {
+    display: none !important;
+  }
+}
+
 /* Ensure buttons with theme background have proper contrast text */
 .bg-primary,
 button[class*="bg-primary"],
