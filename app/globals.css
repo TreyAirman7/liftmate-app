@@ -305,12 +305,20 @@
     /* Apply base styles first */
     @apply bg-background text-foreground transition-colors duration-300 ease-in-out;
     font-family: "Black Ops One", system-ui, sans-serif;
+  }
 
-    /* Add subtle animated gradient background */
-    /* Using slightly offset versions of the base background */
-    background: linear-gradient(-45deg, hsl(var(--background)), hsl(var(--background) / 0.95), hsl(var(--background)), hsl(var(--background) / 0.9));
-    background-size: 400% 400%;
-    animation: subtleGradientShift 30s ease infinite; /* Slow animation */
+  /* Only blend the status bar area (safe-area-inset-top) with the header gradient on iOS PWAs */
+  body::before {
+    content: "";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: env(safe-area-inset-top);
+    background: linear-gradient(135deg, var(--md-primary) 0%, var(--md-primary-darker) 100%);
+    z-index: 9999;
+    pointer-events: none;
   }
 
   /* Disable background animation if user prefers reduced motion */
@@ -421,6 +429,8 @@ body {
   /* Add this to ensure the header is at the very top in full-screen mode */
   position: relative;
   z-index: 10;
+  /* Add safe area padding for iOS status bar */
+  padding-top: env(safe-area-inset-top);
 }
 
 /* Dumbbell icon positioning */
