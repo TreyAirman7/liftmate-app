@@ -27,6 +27,7 @@ import { Slider } from "@/components/ui/slider"
 import { Switch } from "@/components/ui/switch"
 import { useThemeContext } from "@/components/theme-provider"
 import { motion, AnimatePresence } from "framer-motion" // Import Framer Motion
+import { ThreeDPhotoCarousel } from "@/components/ui/3d-carousel";
 
 export default function PicsTab() {
   const [selectedCategory, setSelectedCategory] = useState("all")
@@ -307,38 +308,8 @@ export default function PicsTab() {
                 </Button>
               </div>
             ) : (
-              /* Photo Grid */
-              <div className="grid grid-cols-2 gap-3">
-                {filteredPhotos.map((pic) => (
-                  <Card key={pic.id} className="overflow-hidden">
-                    <CardContent className="p-0">
-                      <div className="aspect-square relative">
-                        <img
-                          src={pic.thumbnail || "/placeholder.svg"}
-                          alt={`Progress photo from ${pic.date}`}
-                          className="object-cover w-full h-full"
-                        />
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            setPhotoToDelete(pic.id)
-                          }}
-                          className="absolute top-2 right-2 bg-black/60 text-white p-1.5 rounded-full hover:bg-red-600/80 transition-colors"
-                          aria-label="Delete photo"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </button>
-                      </div>
-                      <div className="p-2 flex justify-between items-center">
-                        <div className="text-xs">
-                          <p className="font-medium capitalize">{pic.category}</p>
-                          <p className="text-muted-foreground">{pic.date}</p>
-                        </div>
-                        <ChevronRight className="h-4 w-4 text-muted-foreground" />
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+              <div className="relative h-[500px] w-full overflow-hidden">
+                <ThreeDPhotoCarousel cards={filteredPhotos.map((photo) => photo.fullImage)} />
               </div>
             )}
           </TabsContent>
