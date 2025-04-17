@@ -259,19 +259,21 @@ export function ThreeDPhotoCarousel({ cards }: ThreeDPhotoCarouselProps) {
 
   const enterFullscreen = async (element: HTMLElement) => {
     try {
+      // Modern browsers only need the standard method
       if (element.requestFullscreen) {
         await element.requestFullscreen();
-      } else if (element.webkitRequestFullscreen) {
-        // @ts-ignore - Safari
-        await element.webkitRequestFullscreen();
-      } else if (element.mozRequestFullScreen) {
-        // @ts-ignore - Firefox
-        await element.mozRequestFullScreen();
-      } else if (element.msRequestFullscreen) {
-        // @ts-ignore - IE/Edge
-        await element.msRequestFullscreen();
       } else {
-        console.log("Fullscreen API is not supported in this browser");
+        // For older browsers, use type assertion to handle vendor prefixes
+        const el = element as any;
+        if (el.webkitRequestFullscreen) {
+          await el.webkitRequestFullscreen();
+        } else if (el.mozRequestFullScreen) {
+          await el.mozRequestFullScreen();
+        } else if (el.msRequestFullscreen) {
+          await el.msRequestFullscreen();
+        } else {
+          console.log("Fullscreen API is not supported in this browser");
+        }
       }
     } catch (error) {
       console.error("Error attempting to enable fullscreen:", error);
@@ -280,17 +282,19 @@ export function ThreeDPhotoCarousel({ cards }: ThreeDPhotoCarouselProps) {
 
   const exitFullscreen = () => {
     try {
+      // Modern browsers only need the standard method
       if (document.exitFullscreen) {
         document.exitFullscreen();
-      } else if (document.webkitExitFullscreen) {
-        // @ts-ignore - Safari
-        document.webkitExitFullscreen();
-      } else if (document.mozCancelFullScreen) {
-        // @ts-ignore - Firefox
-        document.mozCancelFullScreen();
-      } else if (document.msExitFullscreen) {
-        // @ts-ignore - IE/Edge
-        document.msExitFullscreen();
+      } else {
+        // For older browsers, use type assertion to handle vendor prefixes
+        const doc = document as any;
+        if (doc.webkitExitFullscreen) {
+          doc.webkitExitFullscreen();
+        } else if (doc.mozCancelFullScreen) {
+          doc.mozCancelFullScreen();
+        } else if (doc.msExitFullscreen) {
+          doc.msExitFullscreen();
+        }
       }
     } catch (error) {
       console.error("Error attempting to exit fullscreen:", error);
