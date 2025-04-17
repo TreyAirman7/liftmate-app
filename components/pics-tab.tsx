@@ -29,6 +29,7 @@ import { useThemeContext } from "@/components/theme-provider"
 import { motion, AnimatePresence } from "framer-motion" // Import Framer Motion
 import { ThreeDPhotoCarousel } from "./ui/3d-carousel";
 
+
 export default function PicsTab() {
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [photoToDelete, setPhotoToDelete] = useState<string | null>(null)
@@ -40,7 +41,7 @@ export default function PicsTab() {
   const [deleteInProgress, setDeleteInProgress] = useState(false)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
-
+  
   const [selectedBefore, setSelectedBefore] = useState<ProgressPhoto | null>(null)
   const [selectedAfter, setSelectedAfter] = useState<ProgressPhoto | null>(null)
   const [comparisonMode, setComparisonMode] = useState<"slider" | "fade">("slider")
@@ -83,10 +84,12 @@ export default function PicsTab() {
     const loadPhotos = async () => {
       try {
         setLoading(true)
+        // Load photos from storage
         const allPhotos = await PhotoStorage.getAllPhotos()
         setPhotos(allPhotos)
       } catch (error) {
         console.error("Error loading photos:", error)
+        setPhotos([])
       } finally {
         setLoading(false)
       }
@@ -309,7 +312,7 @@ export default function PicsTab() {
               </div>
             ) : (
               <div className="relative h-[500px] w-full">
-                <ThreeDPhotoCarousel cards={filteredPhotos.map((photo) => photo.fullImage)} />
+                <ThreeDPhotoCarousel cards={filteredPhotos} />
               </div>
             )}
           </TabsContent>
