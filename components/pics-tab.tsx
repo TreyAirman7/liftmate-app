@@ -27,7 +27,7 @@ import { Slider } from "@/components/ui/slider"
 import { Switch } from "@/components/ui/switch"
 import { useThemeContext } from "@/components/theme-provider"
 import { motion, AnimatePresence } from "framer-motion" // Import Framer Motion
-import { ThreeDPhotoCarousel } from "@/components/ui/3d-carousel";
+import { ThreeDPhotoCarousel } from "./ui/3d-carousel";
 
 export default function PicsTab() {
   const [selectedCategory, setSelectedCategory] = useState("all")

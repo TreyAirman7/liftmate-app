@@ -22,9 +22,9 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  // images: {
+  images: {
     unoptimized: true,
-  // },
+  },
   experimental: {
     webpackBuildWorker: true,
     parallelServerBuildTraces: true,
