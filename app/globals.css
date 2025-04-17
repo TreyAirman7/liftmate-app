@@ -2409,5 +2409,5 @@ body {
   border-color: var(--border);
 }
 
-/* Remove this CSS rule that's styling the status bar */
+/* Status bar styling is now handled by the StandaloneModeFix component */
 

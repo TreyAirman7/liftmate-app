@@ -5,6 +5,7 @@ import { WorkoutProvider } from "@/lib/workout-context";
 import Script from "next/script";
 import { Particles } from "@/components/ui/particles";
 import { DynamicThemeColor } from "@/components/dynamic-theme-color";
+import { StandaloneModeFix } from "@/components/standalone-mode-fix";
 
 export const metadata = {
   title: "LiftMate - Fitness Tracking",
@@ -41,6 +42,7 @@ export default function RootLayout({
 <div className='w-full h-[env(safe-area-inset-top)] bg-gradient-to-r from-primary to-secondary' />
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <DynamicThemeColor />
+          <StandaloneModeFix />
           <WorkoutProvider>
             {/* Particles background effect */}
             <Particles
