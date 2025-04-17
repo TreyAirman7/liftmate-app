@@ -84,7 +84,7 @@ const Carousel = memo(
 
     return (
       <div
-        className="flex h-full items-center justify-center bg-mauve-dark-2"
+        className="flex h-full items-center justify-center"
         style={{
           perspective: "1000px",
           WebkitPerspective: "1000px",
@@ -128,7 +128,7 @@ const Carousel = memo(
           {cards.map((imgUrl, i) => (
             <motion.div
               key={`carousel-${i}`}
-              className="absolute flex h-full origin-center items-center justify-center rounded-xl bg-mauve-dark-2 p-2"
+              className="absolute flex h-full origin-center items-center justify-center rounded-xl p-2"
               style={{
                 width: `${faceWidth}px`,
                 transform: `rotateY(${
@@ -206,7 +206,7 @@ export function ThreeDPhotoCarousel({ cards }: ThreeDPhotoCarouselProps) {
           </motion.div>
         )}
       </AnimatePresence>
-      <div className="relative h-full w-full overflow-hidden">
+      <div className="relative h-[500px] w-full overflow-hidden">
         <Carousel
           handleClick={handleClick}
           controls={controls}

@@ -308,7 +308,7 @@ export default function PicsTab() {
                 </Button>
               </div>
             ) : (
-              <div className="relative h-[500px] w-full overflow-hidden">
+              <div className="relative h-[500px] w-full">
                 <ThreeDPhotoCarousel cards={filteredPhotos.map((photo) => photo.fullImage)} />
               </div>
             )}
