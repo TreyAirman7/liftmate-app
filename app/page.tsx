@@ -579,7 +579,7 @@ export default function LiftMatePage() {
           </main>
 
           {/* Bottom Navigation */}
-          <nav className="grid grid-cols-7 border-t border-border bg-background pb-[env(safe-area-inset-bottom)]">
+          <nav className="grid grid-cols-7 border-t border-border bg-background pb-[calc(2*env(safe-area-inset-bottom))]">
             {[
               { id: "workout", icon: <Dumbbell className="h-7 w-7" />, label: "Workout" },
               { id: "stats", icon: <BarChart2 className="h-7 w-7" />, label: "Stats" },
@@ -592,7 +592,7 @@ export default function LiftMatePage() {
               <button
                 key={tab.id}
                 onClick={() => switchTab(tab.id)}
-                className={`flex flex-col items-center justify-center py-3 relative transition-colors ${
+                className={`flex flex-col items-center justify-center py-6 relative transition-colors ${
                   activeTab === tab.id ? "text-primary" : "text-muted-foreground hover:text-foreground"
                 }`}
                 disabled={isAnimating}
