@@ -5,8 +5,6 @@ import { WorkoutProvider } from "@/lib/workout-context";
 import Script from "next/script";
 import { Particles } from "@/components/ui/particles";
 import { DynamicThemeColor } from "@/components/dynamic-theme-color";
-import { IOSStatusBarFix } from "@/components/ios-status-bar-fix";
-
 export const metadata = {
   title: "LiftMate - Fitness Tracking",
   description: "Track your workouts and fitness progress",
@@ -42,7 +40,6 @@ export default function RootLayout({
 {/* No need for the status bar background div with our new approach */}
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <DynamicThemeColor />
-          <IOSStatusBarFix />
           <WorkoutProvider>
             {/* Particles background effect */}
             <Particles

@@ -372,15 +372,17 @@ h1 {
 }
 
 /* Add these styles to ensure the app takes up the full screen and hides the status bar */
+/* globals.css  ─ keep the page white/black and scrollable */
 html,
 body {
   height: 100%;
   width: 100%;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  /* Add this to ensure the app takes up the full screen */
-  position: fixed;
+  margin: 0;
+  background: hsl(var(--background));   /* white in light mode, black in dark */
+  -webkit-overflow-scrolling: touch;    /* smooth momentum scroll on iOS */
+  overscroll-behavior: none;            /* stop rubber‑band bounce */
 }
+
 /* App container with background patterns */
 .app-container {
   position: fixed;
@@ -404,22 +406,38 @@ body {
     radial-gradient(circle at 90% 90%, rgba(var(--md-primary-rgb), 0.15) 0%, transparent 30%);
 }
 /* App header styling */
+/* globals.css */
 .app-header {
-    position: sticky;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    background-color: var(--md-primary);
-    background: linear-gradient(135deg, var(--md-primary) 0%, var(--md-primary-darker) 100%);
-    box-shadow: var(--md-elevation-2);
-    z-index: 50;
-    /* Extend header under the status bar and fill it */
-    padding-top: env(safe-area-inset-top, 0px);
-    min-height: calc(56px + env(safe-area-inset-top, 0px)); /* 56px is a typical header height, adjust as needed */
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+  position: fixed;                 /* sits at the very top of the viewport   */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;                   /* above everything else                  */
+
+  /* Gradient uses your theme vars; works for light & dark */
+  background: linear-gradient(
+    135deg,
+    var(--md-primary) 0%,
+    var(--md-primary-darker) 100%
+  );
+
+  /* Optional subtle elevation */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+
+  /* Let the header’s *content* clear the notch / status‑bar */
+  padding-top: env(safe-area-inset-top);
+  height: calc(56px + env(safe-area-inset-top));   /* 56 px = normal toolbar */
+
+  display: flex;                  /* typical layout helpers (optional) */
+  align-items: center;
+  justify-content: space-between;
 }
+
+/* everything below the header needs the same offset */
+.main-content, .app-container {
+  padding-top: calc(56px + env(safe-area-inset-top));
+}
+
 
 /* Dumbbell icon positioning */
 .app-header .h-12.w-12 {
