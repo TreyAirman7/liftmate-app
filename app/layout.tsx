@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>{/* Ensure no whitespace here */}
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+      <meta name="viewport" content="initial-scale=1, viewport-fit=cover" />
         {/* PWA Tags for Add to Home Screen */}
         <meta name="mobile-web-app-capable" content="yes" />{/* Standard */}
         <meta name="apple-mobile-web-app-capable" content="yes" />{/* Apple specific */}
