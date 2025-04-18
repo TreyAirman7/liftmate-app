@@ -27,7 +27,7 @@ export default function RootLayout({
         <meta name="mobile-web-app-capable" content="yes" />{/* Standard */}
         <meta name="apple-mobile-web-app-capable" content="yes" />{/* Apple specific */}
         {/* Theme color is now handled dynamically by DynamicThemeColor component */}
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="LiftMate" />
         {/* Add Font Awesome for the loading icons */}
         <link
@@ -39,8 +39,8 @@ export default function RootLayout({
         />{/* Ensure no whitespace here */}
       </head>
       <body className="overflow-hidden">
-{/* Status bar background that extends into the safe area */}
-<div className='fixed top-0 left-0 w-full h-[env(safe-area-inset-top)] bg-primary z-[9999]' />
+{/* Status bar background that extends into the safe area with gradient matching header */}
+<div className='fixed top-0 left-0 w-full h-[env(safe-area-inset-top)] bg-gradient-to-r from-primary to-secondary z-[9999]' id="status-bar-background" />
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <DynamicThemeColor />
           <StandaloneModeFix />
