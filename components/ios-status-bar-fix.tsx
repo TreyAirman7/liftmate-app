@@ -11,7 +11,7 @@ import { useEffect } from 'react';
  * 2. Ensures content is properly offset to account for the status bar
  * 3. Uses viewport units and safe-area-inset values for proper positioning
  */
-export function iOSStatusBarFix() {
+export function IOSStatusBarFix() {
   useEffect(() => {
     // Only run in the browser
     if (typeof window === 'undefined') return;
@@ -113,4 +113,4 @@ export function iOSStatusBarFix() {
   return null;
 }
 
-export default iOSStatusBarFix;
+export default IOSStatusBarFix;

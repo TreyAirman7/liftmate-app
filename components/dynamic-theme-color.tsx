@@ -46,7 +46,7 @@ export function DynamicThemeColor() {
     }
     
     // Helper function to darken a color by approximately 20%
-    function darkenColor(color) {
+    function darkenColor(color: string): string {
       // Simple implementation for common color formats
       if (color.startsWith('#')) {
         // Hex color
