@@ -74,9 +74,7 @@ export function StandaloneModeFix() {
       style.textContent = `
         /* Status bar styling for iOS standalone mode */
         body.standalone-mode {
-          /* Ensure content doesn't go under the status bar */
-          padding-top: env(safe-area-inset-top);
-          /* Add padding for other safe areas */
+          /* Only add padding for side and bottom safe areas, not top */
           padding-left: env(safe-area-inset-left);
           padding-right: env(safe-area-inset-right);
           padding-bottom: env(safe-area-inset-bottom);
@@ -85,21 +83,6 @@ export function StandaloneModeFix() {
         /* Remove any existing status bar styling that might conflict */
         body.standalone-mode::before {
           display: none !important;
-        }
-
-        /* Add a new status bar background that properly blends with the app header */
-        body.standalone-mode::after {
-          content: "";
-          display: block;
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: env(safe-area-inset-top);
-          background: var(--md-primary);
-          background: linear-gradient(135deg, var(--md-primary) 0%, var(--md-primary-darker) 100%);
-          z-index: 9999;
-          pointer-events: none;
         }
 
         /* Ensure the app container accounts for safe areas */

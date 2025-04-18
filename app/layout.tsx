@@ -39,7 +39,7 @@ export default function RootLayout({
         />{/* Ensure no whitespace here */}
       </head>
       <body className="overflow-hidden">
-<div className='w-full h-[env(safe-area-inset-top)] bg-gradient-to-r from-primary to-secondary' />
+<div className='fixed top-0 left-0 w-full h-[env(safe-area-inset-top)] bg-gradient-to-r from-primary to-secondary z-[9999]' />
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <DynamicThemeColor />
           <StandaloneModeFix />

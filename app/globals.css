@@ -307,19 +307,7 @@
     font-family: "Black Ops One", system-ui, sans-serif;
   }
 
-  /* Only blend the status bar area (safe-area-inset-top) with the header gradient on iOS PWAs */
-  body::before {
-    content: "";
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: env(safe-area-inset-top);
-    background: linear-gradient(135deg, var(--md-primary) 0%, var(--md-primary-darker) 100%);
-    z-index: 9999;
-    pointer-events: none;
-  }
+  /* Status bar styling is now handled by the fixed div in layout.tsx */
 
   /* Disable background animation if user prefers reduced motion */
   @media (prefers-reduced-motion: reduce) {
@@ -421,16 +409,14 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 50;
   width: 100%;
   background-color: var(--md-primary);
   background: linear-gradient(135deg, var(--md-primary) 0%, var(--md-primary-darker) 100%);
   box-shadow: var(--md-elevation-2);
-  /* Add this to ensure the header is at the very top in full-screen mode */
+  /* Ensure the header is at the very top in full-screen mode */
   position: relative;
-  z-index: 10;
-  /* Add safe area padding for iOS status bar */
-  padding-top: env(safe-area-inset-top);
+  z-index: 50;
+  /* No padding-top needed as the status bar is handled by the fixed div in layout.tsx */
 }
 
 /* Dumbbell icon positioning */
@@ -2409,5 +2395,5 @@ body {
   border-color: var(--border);
 }
 
-/* Status bar styling is now handled by the StandaloneModeFix component */
+/* Status bar styling is handled by the fixed div in layout.tsx */
 
