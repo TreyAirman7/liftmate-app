@@ -85,9 +85,8 @@ export function StandaloneModeFix() {
           display: none !important;
         }
 
-        /* Ensure the app container accounts for safe areas */
+        /* Ensure the app container accounts for safe areas, but not top to allow header to extend */
         .app-container {
-          padding-top: env(safe-area-inset-top);
           padding-left: env(safe-area-inset-left);
           padding-right: env(safe-area-inset-right);
           padding-bottom: env(safe-area-inset-bottom);

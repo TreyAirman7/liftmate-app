@@ -41,17 +41,20 @@ export function DynamicThemeColor() {
     }
 
     // Find the theme-color meta tag
-    const metaElement = document.querySelector('meta[name="theme-color"]');
+    const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+    // Find the apple-mobile-web-app-status-bar-style meta tag
+    const appleStatusBarMeta = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
 
-    if (metaElement instanceof HTMLMetaElement) {
+    // Update or create theme-color meta tag
+    if (themeColorMeta instanceof HTMLMetaElement) {
       // Update existing meta tag
       if (color) {
-        metaElement.setAttribute('content', color);
+        themeColorMeta.setAttribute('content', color);
       }
     } else {
       // If the meta tag doesn't exist or is not the correct type, create/replace it
-      if (metaElement) {
-        metaElement.remove(); // Remove incorrect element if found
+      if (themeColorMeta) {
+        themeColorMeta.remove(); // Remove incorrect element if found
       }
       const newMeta = document.createElement('meta');
       newMeta.name = 'theme-color';
@@ -60,6 +63,12 @@ export function DynamicThemeColor() {
       }
       document.getElementsByTagName('head')[0].appendChild(newMeta);
       console.warn('Theme color meta tag was missing or invalid, created/replaced dynamically.');
+    }
+
+    // Update apple-mobile-web-app-status-bar-style meta tag
+    if (appleStatusBarMeta instanceof HTMLMetaElement) {
+      // Set to default to allow the status bar to be colored by the app
+      appleStatusBarMeta.setAttribute('content', 'default');
     }
 
   }, [resolvedTheme]); // Re-run effect when resolvedTheme changes
