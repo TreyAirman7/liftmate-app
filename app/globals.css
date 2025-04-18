@@ -405,18 +405,20 @@ body {
 }
 /* App header styling */
 .app-header {
-  position: sticky;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  background-color: var(--md-primary);
-  background: linear-gradient(135deg, var(--md-primary) 0%, var(--md-primary-darker) 100%);
-  box-shadow: var(--md-elevation-2);
-  /* Ensure the header is at the very top in full-screen mode */
-  position: relative;
-  z-index: 50;
-  /* No padding-top needed as the status bar is handled by the fixed div in layout.tsx */
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: var(--md-primary);
+    background: linear-gradient(135deg, var(--md-primary) 0%, var(--md-primary-darker) 100%);
+    box-shadow: var(--md-elevation-2);
+    z-index: 50;
+    /* Extend header under the status bar and fill it */
+    padding-top: env(safe-area-inset-top, 0px);
+    min-height: calc(56px + env(safe-area-inset-top, 0px)); /* 56px is a typical header height, adjust as needed */
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 
 /* Dumbbell icon positioning */
