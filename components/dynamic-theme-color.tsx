@@ -62,12 +62,8 @@ export function DynamicThemeColor() {
 
     // Find the theme-color meta tag
     const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-    // Find the apple-mobile-web-app-status-bar-style meta tag
-    const appleStatusBarMeta = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
-    // Find the status bar background element
-    const statusBarElement = document.getElementById('status-bar-background');
 
-    // Update or create theme-color meta tag
+    // Update or create theme-color meta tag for browser tab color
     if (themeColorMeta instanceof HTMLMetaElement) {
       // Update existing meta tag
       themeColorMeta.setAttribute('content', primaryColor);
@@ -82,18 +78,8 @@ export function DynamicThemeColor() {
       document.getElementsByTagName('head')[0].appendChild(newMeta);
       console.warn('Theme color meta tag was missing or invalid, created/replaced dynamically.');
     }
-
-    // Update apple-mobile-web-app-status-bar-style meta tag
-    if (appleStatusBarMeta instanceof HTMLMetaElement) {
-      // Set to black-translucent to allow our custom styling to show through
-      appleStatusBarMeta.setAttribute('content', 'black-translucent');
-    }
-
-    // Update the status bar background element with the current theme colors
-    if (statusBarElement) {
-      // Create a gradient background that matches the header
-      statusBarElement.style.background = `linear-gradient(to right, ${primaryColor}, ${secondaryColor})`;
-    }
+    
+    // Note: Status bar styling for iOS is now handled by the iOSStatusBarFix component
 
   }, [resolvedTheme]); // Re-run effect when resolvedTheme changes
 

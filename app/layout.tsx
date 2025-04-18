@@ -5,7 +5,7 @@ import { WorkoutProvider } from "@/lib/workout-context";
 import Script from "next/script";
 import { Particles } from "@/components/ui/particles";
 import { DynamicThemeColor } from "@/components/dynamic-theme-color";
-import { StandaloneModeFix } from "@/components/standalone-mode-fix";
+import { iOSStatusBarFix } from "@/components/ios-status-bar-fix";
 
 export const metadata = {
   title: "LiftMate - Fitness Tracking",
@@ -39,11 +39,10 @@ export default function RootLayout({
         />{/* Ensure no whitespace here */}
       </head>
       <body className="overflow-hidden">
-{/* Status bar background that extends into the safe area with gradient matching header */}
-<div className='fixed top-0 left-0 w-full h-[env(safe-area-inset-top)] bg-gradient-to-r from-primary to-secondary z-[9999]' id="status-bar-background" />
+{/* No need for the status bar background div with our new approach */}
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <DynamicThemeColor />
-          <StandaloneModeFix />
+          <iOSStatusBarFix />
           <WorkoutProvider>
             {/* Particles background effect */}
             <Particles
