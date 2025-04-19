@@ -1189,8 +1189,11 @@ export default function WorkoutLogger({ template, onComplete, onCancel }: Workou
                   style={
                     {
                       "--range-thumb-bg": themeColor === "default" ? "#FFA500" : "var(--md-primary)",
+                      touchAction: "pan-x",
                     } as React.CSSProperties
                   }
+                  onTouchStart={(e) => e.stopPropagation()}
+                  onTouchMove={(e) => e.stopPropagation()}
                   aria-label="Weight in pounds"
                 />
                 <div
@@ -1233,8 +1236,11 @@ export default function WorkoutLogger({ template, onComplete, onCancel }: Workou
                   style={
                     {
                       "--range-thumb-bg": themeColor === "default" ? "#FFA500" : "var(--md-primary)",
+                      touchAction: "pan-x",
                     } as React.CSSProperties
                   }
+                  onTouchStart={(e) => e.stopPropagation()}
+                  onTouchMove={(e) => e.stopPropagation()}
                   aria-label="Number of reps"
                 />
                 <div

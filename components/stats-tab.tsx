@@ -184,8 +184,8 @@ export default function StatsTab() { // Added export default back
     ];
   }, []); // Empty dependency array ensures this runs only once
   
-  // Use real workouts if available, otherwise use sample data
-  const workouts = originalWorkouts.length > 0 ? originalWorkouts : sampleWorkouts;
+  // Use real workouts only
+  const workouts = originalWorkouts;
   
   const [timeRange, setTimeRange] = useState("all")
   const [volumeData, setVolumeData] = useState<any[]>([])

@@ -182,7 +182,7 @@ export default function HistoryTab() {
         {/* Workout History List */}
         <div className="space-y-6">
           {Object.keys(groupedWorkouts).length === 0 && (
-            <div className="text-center py-8 text-muted-foreground">No workouts found</div>
+            <div className="text-center py-8 text-muted-foreground">No workouts found. Start a workout to see your history here!</div>
           )}
 
           {Object.keys(groupedWorkouts).map((weekKey) => (
