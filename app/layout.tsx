@@ -28,6 +28,8 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />{/* Apple specific */}
         {/* Theme color is now handled dynamically by DynamicThemeColor component */}
         <meta name="apple-mobile-web-app-title" content="LiftMate" />
+        <link rel="apple-touch-icon" href="/Liftmate.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/Liftmate.png" />
         {/* Add Font Awesome for the loading icons */}
         <link
           rel="stylesheet"
