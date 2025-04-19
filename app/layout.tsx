@@ -9,7 +9,7 @@ export const metadata = {
   title: "LiftMate - Fitness Tracking",
   description: "Track your workouts and fitness progress",
   generator: "v0.dev",
-  manifest: '/manifest.json',
+  manifest: process.env.NODE_ENV === 'production' ? '/liftmate-app/manifest.json' : '/manifest.json',
 };
 
 export default function RootLayout({
@@ -28,8 +28,8 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />{/* Apple specific */}
         {/* Theme color is now handled dynamically by DynamicThemeColor component */}
         <meta name="apple-mobile-web-app-title" content="LiftMate" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" href={process.env.NODE_ENV === 'production' ? '/liftmate-app/apple-touch-icon.png' : '/apple-touch-icon.png'} />
+        <link rel="apple-touch-icon" sizes="180x180" href={process.env.NODE_ENV === 'production' ? '/liftmate-app/apple-touch-icon.png' : '/apple-touch-icon.png'} />
         {/* Add Font Awesome for the loading icons */}
         <link
           rel="stylesheet"
