@@ -144,7 +144,7 @@ const ExerciseSelector = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="w-[90vw] max-w-none p-0 border-0 overflow-hidden bg-[#222222]">
+      <DialogContent className="w-[90vw] max-w-none p-0 my-4 border-0 overflow-hidden bg-[#222222]">
         <DialogDescription className="sr-only">
           Template creation dialog. Fill out the form and save your template.
         </DialogDescription>
@@ -267,7 +267,7 @@ const SetConfigurator = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="w-[90vw] max-w-none p-0 border-0 overflow-hidden bg-[#222222]">
+      <DialogContent className="w-[90vw] max-w-none p-0 my-4 border-0 overflow-hidden bg-[#222222]">
         <DialogDescription className="sr-only">Configure sets for the selected exercise.</DialogDescription>
         <div className="flex items-center justify-between p-4 border-b border-[#333333]">
           <DialogHeader>
@@ -550,7 +550,7 @@ export default function TemplateCreator({
   return (
     <>
       <Dialog open={open} onOpenChange={handleOpenChange}>
-        <DialogContent className="template-creator-dialog w-[90vw] max-w-none p-0 border-0 overflow-hidden bg-[#222222]">
+        <DialogContent className="template-creator-dialog w-[90vw] max-w-none p-0 my-4 border-0 overflow-hidden bg-[#222222]">
           <DialogDescription className="sr-only">{isEditMode ? "Edit workout template" : "Create a new workout template"}</DialogDescription>
           <div className="flex items-center justify-between p-4 !bg-black">
             <DialogHeader>
