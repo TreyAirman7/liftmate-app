@@ -579,7 +579,7 @@ export default function LiftMatePage() {
           </main>
 
           {/* Bottom Navigation */}
-          <nav className="grid grid-cols-7 border-t border-border bg-background pb-[calc(2*env(safe-area-inset-bottom))]">
+          <nav className="fixed bottom-0 left-0 right-0 z-50 grid grid-cols-7 border-t border-border bg-background pb-[calc(2*env(safe-area-inset-bottom))]">
             {[
               { id: "workout", icon: <Dumbbell className="h-7 w-7" />, label: "Workout" },
               { id: "stats", icon: <BarChart2 className="h-7 w-7" />, label: "Stats" },
