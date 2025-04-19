@@ -269,7 +269,7 @@ const SetConfigurator = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="w-[90vw] max-w-none p-0 my-4 border-0 overflow-hidden bg-[#222222]">
         <DialogDescription className="sr-only">Configure sets for the selected exercise.</DialogDescription>
-        <div className="flex items-center justify-between p-4 border-b border-[#333333]">
+        <div className="flex items-center justify-between py-4 px-8 mt-8 border-b border-[#333333]">
           <DialogHeader>
              <DialogTitle className="text-xl font-bold text-white">{exercise?.name || "Configure Exercise"}</DialogTitle>
           </DialogHeader>
@@ -287,12 +287,12 @@ const SetConfigurator = ({
           </Button>
         </div>
 
-        <div className="p-4">
+        <div className="pt-0 pb-6 px-4">
           <h3 className="text-lg font-medium mb-3 text-white">Sets</h3>
 
-          <div className="space-y-4 h-[calc(100vh-180px)] w-full max-w-none overflow-y-auto overscroll-contain">
+          <div className="space-y-4 h-[calc(90vh-180px)] w-full max-w-none overflow-y-auto overscroll-contain">
             {sets.map((set, index) => (
-              <div key={index} className="p-4 bg-[#333333] rounded-lg border border-white">
+              <div key={index} className="py-8 px-4 bg-[#333333] rounded-lg border border-white">
                 <div className="flex justify-between items-center mb-3 border-b border-white pb-2">
                   <h4 className="font-medium text-white">Set {index + 1}</h4>
                   {sets.length > 1 && (
@@ -342,7 +342,7 @@ const SetConfigurator = ({
             </Button>
           </div>
 
-          <div className="flex justify-between mt-6">
+          <div className="flex justify-between mt-6 mb-8 px-8">
             <Button
               variant="outline"
               className="bg-[#333333] hover:bg-[#444444] border-[#444444] text-white uppercase"
@@ -550,13 +550,12 @@ export default function TemplateCreator({
   return (
     <>
       <Dialog open={open} onOpenChange={handleOpenChange}>
-        <DialogContent className="template-creator-dialog w-[90vw] max-w-none p-0 my-4 border-0 overflow-hidden bg-[#222222]">
+        <DialogContent className="template-creator-dialog w-[90vw] max-w-none p-0 my-4 border-0 overflow-hidden bg-[#222222] [&_[data-radix-dialog-close]]:top-8">
           <DialogDescription className="sr-only">{isEditMode ? "Edit workout template" : "Create a new workout template"}</DialogDescription>
           <div className="flex items-center justify-between p-4 !bg-black">
             <DialogHeader>
                <DialogTitle className="text-xl font-bold text-white">{isEditMode ? "Edit Template" : "Create New Template"}</DialogTitle>
             </DialogHeader>
-            {/* Default close button from DialogContent will be used */}
           </div>
 
           <div className="p-4 h-[calc(100vh-80px)] w-full max-w-none overflow-y-auto overscroll-contain">

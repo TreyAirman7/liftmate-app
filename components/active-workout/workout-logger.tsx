@@ -22,7 +22,7 @@ import { useEffect as useEffectOriginal } from "react"
 
 interface WorkoutLoggerProps {
   template: WorkoutTemplate
-  onComplete: (workout: any) => void
+onComplete: (workout: CompletedWorkout, isTemplateBased: boolean) => void
   onCancel: () => void
 }
 
@@ -299,8 +299,8 @@ export default function WorkoutLogger({ template, onComplete, onCancel }: Workou
         `Workout saved: ${completedExercises} exercises, ${totalSets} sets, ${totalVolume.toLocaleString()} lbs total volume 💪`,
       )
 
-      // Call the onComplete callback with the completed workout data
-      onComplete(completedWorkout)
+      // Call the onComplete callback with the completed workout data and template status
+      onComplete(completedWorkout, !!template.id) // Pass true if template.id exists
     } catch (error) {
       console.error("Failed to save workout:", error)
       showErrorToast("Failed to save workout. Please try again.")
@@ -636,8 +636,8 @@ export default function WorkoutLogger({ template, onComplete, onCancel }: Workou
         // Show success message with workout stats
         showSuccessToast(`Workout saved successfully! 💪`)
 
-        // Call the onComplete callback with the completed workout data
-        onComplete(completedWorkout)
+        // Call the onComplete callback with the completed workout data and template status
+        onComplete(completedWorkout, !!template.id) // Pass true if template.id exists
       } catch (error) {
         console.error("Failed to save workout:", error)
         setSaveError("Failed to save workout. Please try again.")

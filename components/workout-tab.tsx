@@ -40,6 +40,7 @@ export default function WorkoutTab({ userName, greeting }: WorkoutTabProps) {
   const [templates, setTemplates] = useState<WorkoutTemplate[]>([])
   const [templateCreatorOpen, setTemplateCreatorOpen] = useState(false)
   const [selectedTemplate, setSelectedTemplate] = useState<WorkoutTemplate | null>(null)
+  const [wasTemplateBased, setWasTemplateBased] = useState<boolean>(false) // State to track if workout used a template
   const [templateToDelete, setTemplateToDelete] = useState<WorkoutTemplate | null>(null)
   const [templateToEdit, setTemplateToEdit] = useState<WorkoutTemplate | null>(null)
   const [templateToPreview, setTemplateToPreview] = useState<WorkoutTemplate | null>(null)
@@ -114,9 +115,10 @@ export default function WorkoutTab({ userName, greeting }: WorkoutTabProps) {
   }
 
   // Handle workout completion
-  const handleWorkoutComplete = (workout: CompletedWorkout) => {
+  const handleWorkoutComplete = (workout: CompletedWorkout, isTemplateBased: boolean) => {
     setCurrentWorkout(workout)
     setWorkoutState("summary")
+    setWasTemplateBased(isTemplateBased) // Store if the workout was based on a template
   }
 
   // Handle workout cancellation
@@ -206,13 +208,15 @@ export default function WorkoutTab({ userName, greeting }: WorkoutTabProps) {
     setTemplateToPreview(null)
     setWorkoutState("idle")
   }
+// Render based on workout state
+if (workoutState === "active") {
+  // WorkoutTracker needs the updated onComplete signature
+  return <WorkoutTracker onComplete={handleWorkoutComplete} onCancel={handleWorkoutCancel} initialExercises={[]} />
+}
 
-  // Render based on workout state
-  if (workoutState === "active") {
-    return <WorkoutTracker onComplete={handleWorkoutComplete} onCancel={handleWorkoutCancel} initialExercises={[]} />
-  }
 
   if (workoutState === "template") {
+    // WorkoutFlow needs the updated onComplete signature
     return (
       <WorkoutFlow
         onComplete={handleWorkoutComplete}
@@ -221,10 +225,11 @@ export default function WorkoutTab({ userName, greeting }: WorkoutTabProps) {
       />
     )
   }
+if (workoutState === "summary" && currentWorkout) {
+  // Pass the stored wasTemplateBased state to WorkoutSummary
+  return <WorkoutSummary workout={currentWorkout} onSave={saveWorkout} onSaveAsTemplate={() => {}} isTemplateBased={wasTemplateBased} />
+}
 
-  if (workoutState === "summary" && currentWorkout) {
-    return <WorkoutSummary workout={currentWorkout} onSave={saveWorkout} onSaveAsTemplate={() => {}} />
-  }
 
   if (workoutState === "preview" && templateToPreview) {
     return (

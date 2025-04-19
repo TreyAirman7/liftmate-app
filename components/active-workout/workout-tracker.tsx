@@ -16,7 +16,7 @@ import type { Exercise, ExerciseInWorkout, WorkoutSet, CompletedWorkout } from "
 import DataManager from "@/lib/data-manager"
 
 interface WorkoutTrackerProps {
-  onComplete: (workout: CompletedWorkout) => void
+  onComplete: (workout: CompletedWorkout, isTemplateBased: boolean) => void
   onCancel: () => void
   templateId?: string
   templateName?: string
@@ -143,7 +143,7 @@ export default function WorkoutTracker({
       exercises: completedExercises,
     }
 
-    onComplete(workout)
+    onComplete(workout, !!templateId) // Pass true if templateId exists
   }
 
   return (

@@ -17,9 +17,10 @@ interface WorkoutSummaryProps {
   workout: CompletedWorkout
   onSave: (workout: CompletedWorkout) => void
   onSaveAsTemplate: (name: string) => void
+  isTemplateBased: boolean // Add prop to indicate if the workout was started from a template
 }
-
-export default function WorkoutSummary({ workout, onSave, onSaveAsTemplate }: WorkoutSummaryProps) {
+ 
+export default function WorkoutSummary({ workout, onSave, onSaveAsTemplate, isTemplateBased }: WorkoutSummaryProps) {
   const [templateName, setTemplateName] = useState(workout.templateName || "")
   const [isSaving, setIsSaving] = useState(false) // Add saving state
   const { addWorkout } = useWorkouts()
@@ -214,40 +215,43 @@ export default function WorkoutSummary({ workout, onSave, onSaveAsTemplate }: Wo
 
       {/* Bottom Action Bar */}
       <div className="fixed bottom-16 left-0 right-0 p-4 bg-background border-t border-border">
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button className="w-full bg-primary hover:bg-primary/90">
-              <Save className="h-4 w-4 mr-2" />
-              Save as Template
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Save as Workout Template</DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4 pt-4">
-              <div className="space-y-2">
-                <Label htmlFor="template-name">Template Name</Label>
-                <Input
-                  id="template-name"
-                  placeholder="e.g. Push Day"
-                  value={templateName}
-                  onChange={(e) => setTemplateName(e.target.value)}
-                />
-              </div>
-
-              <Button
-                className="w-full bg-primary hover:bg-primary/90"
-                onClick={handleSaveAsTemplate}
-                disabled={!templateName.trim()}
-              >
-                Save Template
+        {/* Conditionally render the "Save as Template" button */}
+        {!isTemplateBased && (
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button className="w-full bg-primary hover:bg-primary/90">
+                <Save className="h-4 w-4 mr-2" />
+                Save as Template
               </Button>
-            </div>
-          </DialogContent>
-        </Dialog>
-      </div>
-    </div>
-  )
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Save as Workout Template</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4 pt-4">
+                <div className="space-y-2">
+                  <Label htmlFor="template-name">Template Name</Label>
+                  <Input
+                    id="template-name"
+                    placeholder="e.g. Push Day"
+                    value={templateName}
+                    onChange={(e) => setTemplateName(e.target.value)}
+                  />
+                </div>
+
+               <Button
+                 className="w-full bg-primary hover:bg-primary/90"
+                 onClick={handleSaveAsTemplate}
+                 disabled={!templateName.trim()}
+               >
+                 Save Template
+               </Button>
+             </div>
+           </DialogContent>
+         </Dialog>
+       )}
+     </div>
+   </div>
+ )
 }
 
