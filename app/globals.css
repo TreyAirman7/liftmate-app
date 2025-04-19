@@ -2402,3 +2402,15 @@ nav button:not([aria-current="page"]) {
 
 /* Status bar styling is handled by the fixed div in layout.tsx */
 
+/* Top‑only gradient so the status‑bar matches the header */
+html {
+  /* 0 – 120 px: header gradient | rest: normal background */
+  background:
+    linear-gradient(
+      135deg,
+      var(--md-primary) 0%,
+      var(--md-primary-darker) 100%
+    ) 0 0 / 100% 120px no-repeat,
+    hsl(var(--background));         /* white (light) / black (dark) */
+}
+
