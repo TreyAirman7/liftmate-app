@@ -580,33 +580,37 @@ export default function LiftMatePage() {
             </TabContent>
           </main>
 
+:start_line:583
+-------
           {/* Bottom Navigation */}
-          <nav className="fixed bottom-0 left-0 right-0 z-50 grid grid-cols-7 border-t border-border bg-background pb-[calc(2*env(safe-area-inset-bottom))]">
-            {[
-              { id: "workout", icon: <Dumbbell className="h-7 w-7" />, label: "Workout" },
-              { id: "stats", icon: <BarChart2 className="h-7 w-7" />, label: "Stats" },
-              { id: "progress", icon: <TrendingUp className="h-7 w-7" />, label: "Progress" },
-              { id: "exercises", icon: <Clipboard className="h-7 w-7" />, label: "Exercises" },
-              { id: "history", icon: <Clock className="h-7 w-7" />, label: "History" },
-              { id: "goals", icon: <Target className="h-7 w-7" />, label: "Goals" },
-              { id: "pics", icon: <Image className="h-7 w-7" />, label: "Pics" },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => switchTab(tab.id)}
-                className={`flex flex-col items-center justify-center py-6 relative transition-colors ${
-                  activeTab === tab.id ? "text-primary" : "text-muted-foreground hover:text-foreground"
-                }`}
-                disabled={isAnimating}
-                aria-label={`Switch to ${tab.label} tab`}
-                aria-current={activeTab === tab.id ? "page" : undefined}
-              >
-                {activeTab === tab.id && <div className="absolute top-0 w-10 h-1 bg-primary rounded-full"></div>}
-                {tab.icon}
-                {/* Removed text label for icon-only nav */}
-              </button>
-            ))}
-          </nav>
+          {!loading && (
+            <nav className="fixed bottom-0 left-0 right-0 z-50 grid grid-cols-7 border-t border-border bg-background pb-[calc(2*env(safe-area-inset-bottom))]">
+              {[
+                { id: "workout", icon: <Dumbbell className="h-7 w-7" />, label: "Workout" },
+                { id: "stats", icon: <BarChart2 className="h-7 w-7" />, label: "Stats" },
+                { id: "progress", icon: <TrendingUp className="h-7 w-7" />, label: "Progress" },
+                { id: "exercises", icon: <Clipboard className="h-7 w-7" />, label: "Exercises" },
+                { id: "history", icon: <Clock className="h-7 w-7" />, label: "History" },
+                { id: "goals", icon: <Target className="h-7 w-7" />, label: "Goals" },
+                { id: "pics", icon: <Image className="h-7 w-7" />, label: "Pics" },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => switchTab(tab.id)}
+                  className={`flex flex-col items-center justify-center py-6 relative transition-colors ${
+                    activeTab === tab.id ? "text-primary" : "text-muted-foreground hover:text-foreground"
+                  }`}
+                  disabled={isAnimating}
+                  aria-label={`Switch to ${tab.label} tab`}
+                  aria-current={activeTab === tab.id ? "page" : undefined}
+                >
+                  {activeTab === tab.id && <div className="absolute top-0 w-10 h-1 bg-primary rounded-full"></div>}
+                  {tab.icon}
+                  {/* Removed text label for icon-only nav */}
+                </button>
+              ))}
+            </nav>
+          )}
         </div>
       )}
     </>
