@@ -550,25 +550,17 @@ export default function StatsTab() { // Added export default back
                     }
                   }
                   
-                  // Determine cell styling based on activity level and theme
+                  // Determine cell styling based on workout presence and theme
                   let cellClasses = "relative flex items-center justify-center w-full aspect-square rounded-md transition-all duration-200";
                   
                   // Base style for all cells (empty days)
                   let bgColorClass = "bg-gray-100 dark:bg-gray-800";
                   
-                  // Apply color based on activity level - using more vibrant colors
-                  if (activityLevel === 1) {
+                  // Apply theme color if there's a workout
+                  if (workoutsOnDate.length > 0) {
                     bgColorClass = themeColor === "default"
-                      ? "bg-orange-300 dark:bg-orange-700"
-                      : "bg-primary/40 dark:bg-primary/70";
-                  } else if (activityLevel === 2) {
-                    bgColorClass = themeColor === "default"
-                      ? "bg-orange-500 dark:bg-orange-500"
-                      : "bg-primary/60 dark:bg-primary/50";
-                  } else if (activityLevel === 3) {
-                    bgColorClass = themeColor === "default"
-                      ? "bg-orange-700 dark:bg-orange-400"
-                      : "bg-primary/80 dark:bg-primary/40";
+                      ? "bg-orange-500 dark:bg-orange-500" // Using a solid orange for default theme
+                      : "bg-primary dark:bg-primary"; // Using primary theme color
                   }
                   
                   // Add today indicator
@@ -582,29 +574,19 @@ export default function StatsTab() { // Added export default back
                   return (
                     <div
                       key={i}
-                      className={`${cellClasses} ${bgColorClass} ${todayClass} group hover:scale-105`}
+                      className={`${cellClasses} bg-gray-100 dark:bg-gray-800 ${todayClass} group hover:scale-105`}
+                      style={{
+                        backgroundColor: workoutsOnDate.length > 0
+                          ? (themeColor === "default" ? "#FFA500" : "var(--primary)")
+                          : undefined
+                      }}
                       title={`${dateStr}: ${workoutsOnDate.length} workout(s), ${totalVolume.toLocaleString()} volume`}
                     >
                       {/* Day number - small and subtle */}
-                      <span className="absolute top-1 left-1 text-[0.65rem] text-muted-foreground">
+                      <span className={`absolute top-1 left-1 text-[0.65rem] ${workoutsOnDate.length > 0 ? 'text-black dark:text-primary-foreground' : 'text-muted-foreground'}`}>
                         {dayNumber}
                       </span>
                       
-                      {/* Workout indicator */}
-                      {workoutsOnDate.length > 0 && (
-                        <div className="absolute bottom-1 right-1 flex space-x-0.5">
-                          {Array.from({ length: Math.min(workoutsOnDate.length, 3) }).map((_, j) => (
-                            <div
-                              key={j}
-                              className={`h-2 w-2 rounded-full ${
-                                themeColor === "default"
-                                  ? "bg-orange-500 dark:bg-orange-400"
-                                  : "bg-primary dark:bg-primary"
-                              }`}
-                            />
-                          ))}
-                        </div>
-                      )}
                     </div>
                   );
                 })}
@@ -616,19 +598,9 @@ export default function StatsTab() { // Added export default back
                   <div className="h-3 w-3 rounded-sm bg-gray-100 dark:bg-gray-800" />
                   <span>No workout</span>
                 </div>
-                <div className="flex items-center space-x-4">
-                  <div className="flex items-center space-x-1">
-                    <div className={`h-3 w-3 rounded-sm ${themeColor === "default" ? "bg-orange-300 dark:bg-orange-700" : "bg-primary/40 dark:bg-primary/70"}`} />
-                    <span>Light</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <div className={`h-3 w-3 rounded-sm ${themeColor === "default" ? "bg-orange-500 dark:bg-orange-500" : "bg-primary/60 dark:bg-primary/50"}`} />
-                    <span>Medium</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <div className={`h-3 w-3 rounded-sm ${themeColor === "default" ? "bg-orange-700 dark:bg-orange-400" : "bg-primary/80 dark:bg-primary/40"}`} />
-                    <span>Intense</span>
-                  </div>
+                <div className="flex items-center space-x-1">
+                  <div className={`h-3 w-3 rounded-sm ${themeColor === "default" ? "bg-orange-500 dark:bg-orange-500" : "bg-primary dark:bg-primary"}`} />
+                  <span>Workout</span>
                 </div>
               </div>
             </div>
