@@ -3,6 +3,7 @@
 
 import { useEffect } from 'react';
 import { useTheme } from 'next-themes';
+import { useThemeContext } from '@/components/theme-provider';
 
 const PRIMARY_VAR    = '--md-primary';
 const FALLBACK_LIGHT = '#00796b';
@@ -10,7 +11,7 @@ const FALLBACK_DARK  = '#004d40';
 
 export function DynamicThemeColor() {
   const { theme, resolvedTheme } = useTheme();   //  ← note `theme`
-
+  const { themeColor } = useThemeContext();
   useEffect(() => {
     const css = getComputedStyle(document.documentElement);
     let colour = css.getPropertyValue(PRIMARY_VAR).trim();
@@ -27,7 +28,7 @@ export function DynamicThemeColor() {
     }
 
     meta.content = colour;
-  }, [resolvedTheme, theme]);                   //  ← depends on BOTH
+  }, [resolvedTheme, theme, themeColor]);                   //  ← depends on BOTH
 
   return null;
 }
