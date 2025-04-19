@@ -1,6 +1,8 @@
 // This is a simplified version of the data manager
 // In a real implementation, this would handle all localStorage operations
 
+import { preloadedExercises } from "./exercise-data";
+
 export interface Exercise {
   id: string
   name: string
@@ -105,7 +107,7 @@ const initializeStorage = (): void => {
 
   localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(defaultSettings))
   localStorage.setItem(STORAGE_KEYS.USER_PROFILE, JSON.stringify(defaultProfile))
-  localStorage.setItem(STORAGE_KEYS.EXERCISES, JSON.stringify([])) // Initialize with empty exercises
+  localStorage.setItem(STORAGE_KEYS.EXERCISES, JSON.stringify(preloadedExercises)) // Initialize with preloaded exercises
   localStorage.setItem(STORAGE_KEYS.TEMPLATES, JSON.stringify([])) // Initialize with empty templates
   localStorage.setItem(STORAGE_KEYS.WORKOUTS, JSON.stringify([]))
 }
