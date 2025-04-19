@@ -21,11 +21,12 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>{/* Ensure no whitespace here */}
       <meta name="viewport" content="initial-scale=1, viewport-fit=cover" />
+      <meta name="theme-color" media="(prefers-color-scheme: light)" content="#00796b"/>
+      <meta name="theme-color" media="(prefers-color-scheme: dark)"  content="#004d40"/>
         {/* PWA Tags for Add to Home Screen */}
         <meta name="mobile-web-app-capable" content="yes" />{/* Standard */}
         <meta name="apple-mobile-web-app-capable" content="yes" />{/* Apple specific */}
         {/* Theme color is now handled dynamically by DynamicThemeColor component */}
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="LiftMate" />
         {/* Add Font Awesome for the loading icons */}
         <link
