@@ -1844,7 +1844,7 @@ button[class*="hover:bg-teal-"]:hover,
   -webkit-overflow-scrolling: touch;
   contain: content; /* Improve performance by containing repaints */
   isolation: isolate; /* Create a new stacking context */
-  padding-bottom: 80px; /* Add padding to account for bottom navigation */
+  padding-bottom: 120px; /* Increased padding to account for bottom navigation */
 }
 
 /* Active tab state */
