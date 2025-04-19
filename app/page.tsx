@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { ThemeSelector } from "@/components/theme-selector"
 import LoadingScreen from "@/components/loading-screen"
+import OnboardingForm from "@/components/onboarding/onboarding-form"; // Import the new component
 import DataManager from "@/lib/data-manager"
 import {
   startAnimationMonitoring,
@@ -322,7 +323,8 @@ export default function LiftMatePage() {
   const [mounted, setMounted] = useState(false)
   const [loading, setLoading] = useState(true)
   const { theme } = useTheme()
-  const [userName, setUserName] = useState("Trey")
+  const [currentUserName, setCurrentUserName] = useState("User") // Default name
+  const [showOnboarding, setShowOnboarding] = useState(false); // State to control onboarding visibility
 
   // Add these refs and state variables at the top of the component
   const tabScrollPositionsRef = useRef<Record<string, number>>({})
@@ -401,18 +403,67 @@ export default function LiftMatePage() {
     }
   }, [])
 
+  // Check onboarding status on mount
+  useEffect(() => {
+    if (typeof window !== 'undefined') { // Ensure localStorage is available
+      const onboardingComplete = localStorage.getItem('onboardingComplete');
+      if (onboardingComplete !== 'true') {
+        setShowOnboarding(true);
+      } else {
+        // If onboarding is complete, try to load user name
+        const storedProfile = localStorage.getItem('userProfile');
+        if (storedProfile) {
+          try {
+            const profile = JSON.parse(storedProfile);
+            if (profile.name) {
+              setCurrentUserName(profile.name);
+            }
+          } catch (e) {
+            console.error("Failed to parse user profile from localStorage", e);
+            // Fallback or show onboarding again if profile is corrupted
+            // localStorage.removeItem('onboardingComplete');
+            // setShowOnboarding(true);
+          }
+        } else {
+           // Profile missing, might need onboarding again
+           // localStorage.removeItem('onboardingComplete');
+           // setShowOnboarding(true);
+        }
+      }
+    }
+  }, []); // Empty dependency array ensures this runs only once on mount
+
   // Initialize header text animation after component mounts
   useEffect(() => {
-    if (mounted && !loading) {
+    // Only run header animation if onboarding is NOT shown and app is loaded
+    if (mounted && !loading && !showOnboarding) {
       // Initialize the header text animation
       setupHeaderTextAnimation()
     }
-  }, [mounted, loading])
+  }, [mounted, loading, showOnboarding]) // Add showOnboarding dependency
+
+  // Handler for when onboarding is completed
+  const handleOnboardingComplete = () => {
+    setShowOnboarding(false);
+    // Re-read the name from localStorage after completion
+    const storedProfile = localStorage.getItem('userProfile');
+    if (storedProfile) {
+      try {
+        const profile = JSON.parse(storedProfile);
+        if (profile.name) {
+          setCurrentUserName(profile.name);
+        }
+      } catch (e) {
+        console.error("Failed to parse user profile after onboarding", e);
+        setCurrentUserName("User"); // Fallback
+      }
+    }
+  };
 
   // Update the switchTab function to be more reliable
   const switchTab = useCallback(
     (tabId: string) => {
-      if (tabId === activeTab || isAnimating) return
+      if (tabId === activeTab || isAnimating || showOnboarding) return // Prevent tab switching during onboarding
 
       // Set animating state to prevent multiple rapid transitions
       setIsAnimating(true)
@@ -466,9 +517,15 @@ export default function LiftMatePage() {
         }
       }, animationDurationMs + 50) // Add a small buffer to ensure animation completes
     },
-    [activeTab, isAnimating, tabOrder],
+    [activeTab, isAnimating, tabOrder, showOnboarding], // Add showOnboarding dependency
   )
 
+  // Render onboarding if needed
+  if (showOnboarding) {
+    return <OnboardingForm onComplete={handleOnboardingComplete} />;
+  }
+
+  // Render main app content if onboarding is complete
   return (
     <>
       <style jsx global>
@@ -522,7 +579,7 @@ export default function LiftMatePage() {
               isPrevious={previousTab === "workout"}
               animationDirection={animationDirection}
             >
-              <WorkoutTab userName={userName} greeting={getGreeting()} />
+              <WorkoutTab userName={currentUserName} greeting={getGreeting()} />
             </TabContent>
 
             <TabContent

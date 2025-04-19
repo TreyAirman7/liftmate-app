@@ -290,7 +290,7 @@ const SetConfigurator = ({
         <div className="p-4">
           <h3 className="text-lg font-medium mb-3 text-white">Sets</h3>
 
-          <div className="space-y-4 h-[calc(100vh-160px)] w-full max-w-none overflow-y-auto overscroll-contain">
+          <div className="space-y-4 h-[calc(100vh-180px)] w-full max-w-none overflow-y-auto overscroll-contain">
             {sets.map((set, index) => (
               <div key={index} className="p-4 bg-[#333333] rounded-lg border border-white">
                 <div className="flex justify-between items-center mb-3 border-b border-white pb-2">
