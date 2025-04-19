@@ -2415,3 +2415,18 @@ html {
     hsl(var(--background));         /* white (light) / black (dark) */
 }
 
+
+/* ────── Bright‑Background Contrast Fix ────── */
+/* Ensure adequate contrast: force black text on mint, yellow, lime, and sky‑blue backgrounds */
+[class*="bg-mint-"],
+.dark [class*="bg-mint-"],
+[class*="bg-yellow-"],
+.dark [class*="bg-yellow-"],
+[class*="bg-lime-"],
+.dark [class*="bg-lime-"],
+[class*="bg-sky-"],
+.dark [class*="bg-sky-"] {
+  --tw-text-opacity: 1;
+  color: rgba(0, 0, 0, var(--tw-text-opacity)) !important;
+}
+

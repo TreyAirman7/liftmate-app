@@ -128,7 +128,7 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
 
       // Save to settings
       try {
-        const settings = DataManager.getSettings()
+        const settings = DataManager.getSettings() ?? { weightUnit: "lbs", theme, darkMode: false }
         settings.theme = theme
         DataManager.saveSettings(settings)
       } catch (error) {

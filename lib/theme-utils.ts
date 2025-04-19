@@ -1,5 +1,5 @@
 // Theme color definitions based on the style guide
-export type ThemeColor = "default" | "blue" | "green" | "orange" | "red" | "teal" | "pink" | "indigo" | "amber" | "cyan" | "lavender" | "lime" | "deepPurple" | "yellow" | "deepOrange" | "lightBlue" | "brown" | "gray" | "coral" | "mint"
+export type ThemeColor = "olive" | "blue" | "green" | "orange" | "red" | "darkBrown" | "pink" | "indigo" | "amber" | "maroon" | "lavender" | "violet" | "navy" | "magenta" | "darkYellow" | "lightBlue" | "cyanGray" | "gray" | "coral" | "ochre"
 
 export interface ThemeColors {
   primary: string
@@ -12,14 +12,14 @@ export interface ThemeColors {
 }
 
 export const themeColors: Record<ThemeColor, ThemeColors> = {
-  default: {
-    primary: "#6750A4",
-    primaryContainer: "#EADDFF",
-    secondary: "#625B71",
-    secondaryContainer: "#E8DEF8",
-    tertiary: "#7D5260",
-    tertiaryContainer: "#FFD8E4",
-    primaryDarker: "#483475",
+  olive: { // Replaced 'default'
+    primary: "#808000",
+    primaryContainer: "#e6e6cc",
+    secondary: "#707000",
+    secondaryContainer: "#f5f5e0",
+    tertiary: "#606000",
+    tertiaryContainer: "#d9d9b3",
+    primaryDarker: "#595900",
   },
   blue: {
     primary: "#0C8CE9",
@@ -57,14 +57,14 @@ export const themeColors: Record<ThemeColor, ThemeColors> = {
     tertiaryContainer: "#FFCDD2",
     primaryDarker: "#8c1c1c",
   },
-  teal: {
-    primary: "#00796B",
-    primaryContainer: "#B2DFDB",
-    secondary: "#00695C",
-    secondaryContainer: "#B2DFDB",
-    tertiary: "#004D40",
-    tertiaryContainer: "#A7FFEB",
-    primaryDarker: "#004D40",
+  darkBrown: { // Replaced 'teal'
+    primary: "#331A19",
+    primaryContainer: "#d6cbcb",
+    secondary: "#2b1615",
+    secondaryContainer: "#e3dcdc",
+    tertiary: "#241312",
+    tertiaryContainer: "#c7bdbd",
+    primaryDarker: "#1f1110",
   },
   pink: {
     primary: "#C2185B",
@@ -93,14 +93,14 @@ export const themeColors: Record<ThemeColor, ThemeColors> = {
     tertiaryContainer: "#FFE082",
     primaryDarker: "#FF8F00",
   },
-  cyan: {
-    primary: "#0097A7",
-    primaryContainer: "#B2EBF2",
-    secondary: "#00838F",
-    secondaryContainer: "#B2EBF2",
-    tertiary: "#006064",
-    tertiaryContainer: "#84FFFF",
-    primaryDarker: "#006064",
+  maroon: { // Replaced 'cyan'
+    primary: "#800000",
+    primaryContainer: "#e6cccc",
+    secondary: "#700000",
+    secondaryContainer: "#f5e0e0",
+    tertiary: "#600000",
+    tertiaryContainer: "#d9b3b3",
+    primaryDarker: "#590000",
   },
   lavender: {
     primary: "#7F39FB",
@@ -111,41 +111,41 @@ export const themeColors: Record<ThemeColor, ThemeColors> = {
     tertiaryContainer: "#DDD4FF",
     primaryDarker: "#5929D4",
   },
-  lime: {
-    primary: "#CDDC39",
-    primaryContainer: "#F0F4C3",
-    secondary: "#C0CA33",
-    secondaryContainer: "#F9FBE7",
-    tertiary: "#AFB42B",
-    tertiaryContainer: "#F1F8E9",
-    primaryDarker: "#9E9D24",
+  violet: { // Replaced 'lime'
+    primary: "#911eb4",
+    primaryContainer: "#e9d0f9",
+    secondary: "#7d1aa0",
+    secondaryContainer: "#f3e0ff",
+    tertiary: "#6a178c",
+    tertiaryContainer: "#e0c8f0",
+    primaryDarker: "#6a178c",
   },
-  deepPurple: {
-    primary: "#673AB7",
-    primaryContainer: "#EDE7F6",
-    secondary: "#5E35B1",
-    secondaryContainer: "#D1C4E9",
-    tertiary: "#512DA8",
-    tertiaryContainer: "#B39DDB",
-    primaryDarker: "#4527A0",
+  navy: { // Replaced 'deepPurple'
+    primary: "#000075",
+    primaryContainer: "#cccce3",
+    secondary: "#000066",
+    secondaryContainer: "#e0e0f0",
+    tertiary: "#000057",
+    tertiaryContainer: "#b3b3d1",
+    primaryDarker: "#00004d",
   },
-  yellow: {
-    primary: "#FFEB3B",
-    primaryContainer: "#FFFDE7",
-    secondary: "#FDD835",
-    secondaryContainer: "#FFF9C4",
-    tertiary: "#FBC02D",
-    tertiaryContainer: "#FFECB3",
-    primaryDarker: "#F9A825",
+  magenta: { // Replaced 'yellow'
+    primary: "#f032e6",
+    primaryContainer: "#fdd7f9",
+    secondary: "#d82ccf",
+    secondaryContainer: "#ffe5fa",
+    tertiary: "#c027b8",
+    tertiaryContainer: "#f8c5f3",
+    primaryDarker: "#b31cae",
   },
-  deepOrange: {
-    primary: "#FF5722",
-    primaryContainer: "#FBE9E7",
-    secondary: "#E64A19",
-    secondaryContainer: "#FFCCBC",
-    tertiary: "#D84315",
-    tertiaryContainer: "#FFAB91",
-    primaryDarker: "#BF360C",
+  darkYellow: { // Replaced 'crimson'
+    primary: "#9B870C",
+    primaryContainer: "#f1eacb",
+    secondary: "#8a780a",
+    secondaryContainer: "#f7f1d9",
+    tertiary: "#7a6a09",
+    tertiaryContainer: "#e9e2bf",
+    primaryDarker: "#6e5f08",
   },
   lightBlue: {
     primary: "#03A9F4",
@@ -156,14 +156,14 @@ export const themeColors: Record<ThemeColor, ThemeColors> = {
     tertiaryContainer: "#B3E5FC",
     primaryDarker: "#0277BD",
   },
-  brown: {
-    primary: "#795548",
-    primaryContainer: "#EFEBE9",
-    secondary: "#6D4C41",
-    secondaryContainer: "#D7CCC8",
-    tertiary: "#5D4037",
-    tertiaryContainer: "#D7CCC8",
-    primaryDarker: "#4E342E",
+  cyanGray: { // Replaced 'steelGray'
+    primary: "#48686C",
+    primaryContainer: "#cddedf",
+    secondary: "#3e5a5e",
+    secondaryContainer: "#e1e8e9",
+    tertiary: "#354d51",
+    tertiaryContainer: "#c3d1d3",
+    primaryDarker: "#2f4548",
   },
   gray: {
     primary: "#9E9E9E",
@@ -183,14 +183,14 @@ export const themeColors: Record<ThemeColor, ThemeColors> = {
     tertiaryContainer: "#FFE1E0",
     primaryDarker: "#D8433B",
   },
-  mint: {
-    primary: "#98FF98",
-    primaryContainer: "#E6FFE6",
-    secondary: "#7ED97E",
-    secondaryContainer: "#CCF0CC",
-    tertiary: "#6CCF6C",
-    tertiaryContainer: "#BBEABB",
-    primaryDarker: "#56A956",
+  ochre: { // Replaced 'mint'
+    primary: "#9a6324",
+    primaryContainer: "#f0dcb8",
+    secondary: "#87561f",
+    secondaryContainer: "#fae8cd",
+    tertiary: "#754a1a",
+    tertiaryContainer: "#e8d3b0",
+    primaryDarker: "#6e4517",
   },
 }
 
