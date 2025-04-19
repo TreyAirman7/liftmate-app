@@ -407,36 +407,32 @@ body {
 }
 /* App header styling */
 /* globals.css */
-.app-header {
-  position: fixed;                 /* sits at the very top of the viewport   */
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;                   /* above everything else                  */
+/* ────────────────────────────────────────────
+   Unified header that extends under iOS status‑bar
+   ──────────────────────────────────────────── */
+   .app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: linear-gradient(135deg, var(--md-primary) 0%, var(--md-primary-darker) 100%);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    padding-top: env(safe-area-inset-top);
+    height: calc(56px + env(safe-area-inset-top));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  /* Push page content below the header */
+  .app-container,
+  .main-content,
+  body > main {
+    padding-top: calc(56px + env(safe-area-inset-top));
+  }
+  
 
-  /* Gradient uses your theme vars; works for light & dark */
-  background: linear-gradient(
-    135deg,
-    var(--md-primary) 0%,
-    var(--md-primary-darker) 100%
-  );
-
-  /* Optional subtle elevation */
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-
-  /* Let the header’s *content* clear the notch / status‑bar */
-  padding-top: env(safe-area-inset-top);
-  height: calc(56px + env(safe-area-inset-top));   /* 56 px = normal toolbar */
-
-  display: flex;                  /* typical layout helpers (optional) */
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* everything below the header needs the same offset */
-.main-content, .app-container {
-  padding-top: calc(56px + env(safe-area-inset-top));
-}
 
 
 /* Dumbbell icon positioning */
@@ -444,11 +440,7 @@ body {
   transform: translateY(8px);
 }
 
-.dark .app-header {
-  background: linear-gradient(135deg, var(--md-primary) 0%, rgba(0, 0, 0, 0.5) 100%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
+
 
 /* Adjust letter spacing for better readability with Black Ops One font */
 body {
@@ -2189,13 +2181,6 @@ nav button:not([aria-current="page"]) {
   scrollbar-width: none;
 }
 
-/* Ensure proper scrolling behavior throughout the app */
-html,
-body {
-  height: 100%;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-}
 
 /* Ensure tab content scrolls properly */
 .tab-content {
