@@ -52,7 +52,7 @@ export default function LoadingScreen({ isLoading = true }: LoadingScreenProps) 
       </div>
 
       {/* content */}
-      <div className="relative z-10 flex flex-col items-center text-center p-8">
+      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center p-8">
         <h1 className="text-5xl font-bold mb-32 tracking-tight opacity-0 animate-[fadeInScaleUp_1.5s_ease-out_forwards] font-['Black_Ops_One'] text-white">
           LiftMate
         </h1>
@@ -110,7 +110,7 @@ export default function LoadingScreen({ isLoading = true }: LoadingScreenProps) 
         </div>
 
         {/* loading bar */}
-        <div className="w-[60%] max-w-[300px] h-[10px] bg-black/30 rounded-md mt-32 mb-6 mx-auto overflow-hidden relative">
+        <div className="w-[60%] max-w-[300px] h-[10px] bg-black/30 rounded-md mt-32 mb-1 mx-auto overflow-hidden relative">
           <div
             ref={barRef}
             className="h-full rounded-md animate-[fillBar_3.5s_linear_forwards] animation-delay-[0.5s]"
@@ -119,7 +119,7 @@ export default function LoadingScreen({ isLoading = true }: LoadingScreenProps) 
         </div>
 
         {/* text */}
-        <div className="text-lg text-gray-100 opacity-0 animate-[fadeIn_2s_ease-in_forwards] font-['Inter'] mt-4">
+        <div className="text-lg text-gray-100 opacity-0 animate-[fadeIn_2s_ease-in_forwards] font-['Inter']">
           Loading your progress
           <span className="inline-block opacity-0 animate-[loadingDots_1.4s_infinite]">.</span>
           <span className="inline-block opacity-0 animate-[loadingDots_1.4s_infinite] animation-delay-[0.2s]">.</span>
