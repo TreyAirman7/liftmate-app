@@ -2,6 +2,7 @@
 // In a real implementation, this would handle all localStorage operations
 
 import { preloadedExercises } from "./exercise-data";
+import { preloadedTemplates } from "./template-data";
 
 export interface Exercise {
   id: string
@@ -108,7 +109,7 @@ const initializeStorage = (): void => {
   localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(defaultSettings))
   localStorage.setItem(STORAGE_KEYS.USER_PROFILE, JSON.stringify(defaultProfile))
   localStorage.setItem(STORAGE_KEYS.EXERCISES, JSON.stringify(preloadedExercises)) // Initialize with preloaded exercises
-  localStorage.setItem(STORAGE_KEYS.TEMPLATES, JSON.stringify([])) // Initialize with empty templates
+  localStorage.setItem(STORAGE_KEYS.TEMPLATES, JSON.stringify(preloadedTemplates)) // Initialize with preloaded templates
   localStorage.setItem(STORAGE_KEYS.WORKOUTS, JSON.stringify([]))
 }
 
