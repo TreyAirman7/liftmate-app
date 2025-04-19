@@ -237,7 +237,9 @@ const SetConfigurator = ({
   }
 
   // Save exercise with sets
-  const handleSave = () => {
+  const handleSave = (e: React.MouseEvent<HTMLButtonElement>) => { // Accept event
+    e.stopPropagation(); // Stop event propagation
+
     if (!exercise) {
       console.error("No exercise selected")
       return
