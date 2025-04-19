@@ -2430,3 +2430,54 @@ html {
   color: rgba(0, 0, 0, var(--tw-text-opacity)) !important;
 }
 
+
+/* Icon hover effect */
+.app-container main svg,
+.app-container main img,
+.app-container main i {
+  position: relative;
+  display: inline-block;
+  padding: 1rem;
+  cursor: pointer;
+  perspective: 1000px;
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.4s ease;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+.app-container main svg,
+.app-container main img,
+.app-container main i {
+  width: auto;
+  height: auto;
+  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+  fill: none;
+}
+.app-container main svg::before,
+.app-container main img::before,
+.app-container main i::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle, rgba(var(--md-primary-rgb), 0.3) 0%, rgba(var(--md-primary-rgb), 0) 70%);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease-out;
+  z-index: -1;
+}
+.app-container main svg:hover,
+.app-container main img:hover,
+.app-container main i:hover {
+  transform: rotateY(360deg) rotateX(15deg) scale(1.1);
+  fill: var(--md-primary);
+  filter: drop-shadow(0 10px 15px rgba(var(--md-primary-rgb), 0.3));
+}
+.app-container main svg:hover::before,
+.app-container main img:hover::before,
+.app-container main i:hover::before {
+  opacity: 1;
+  transform: scale(1.4);
+}
