@@ -173,7 +173,7 @@ const ExerciseSelector = ({
             />
           </div>
 
-          <div className="max-h-[60vh] overflow-y-auto space-y-6">
+          <div className="h-[calc(100vh-160px)] w-full max-w-none overflow-y-auto space-y-6">
             {filteredExercises.length === 0 ? (
               <div className="text-center py-8 text-muted-foreground">No exercises found</div>
             ) : (
@@ -290,7 +290,7 @@ const SetConfigurator = ({
         <div className="p-4">
           <h3 className="text-lg font-medium mb-3 text-white">Sets</h3>
 
-          <div className="space-y-4 max-h-[60vh] overflow-y-auto overscroll-contain">
+          <div className="space-y-4 h-[calc(100vh-160px)] w-full max-w-none overflow-y-auto overscroll-contain">
             {sets.map((set, index) => (
               <div key={index} className="p-4 bg-[#333333] rounded-lg border border-white">
                 <div className="flex justify-between items-center mb-3 border-b border-white pb-2">
@@ -559,8 +559,8 @@ export default function TemplateCreator({
             {/* Default close button from DialogContent will be used */}
           </div>
 
-          <div className="p-4 max-h-[75vh] overflow-y-auto overscroll-contain">
-            <div className="mb-6">
+          <div className="p-4 h-[calc(100vh-80px)] w-full max-w-none overflow-y-auto overscroll-contain">
+            <div className="mb-6 w-full">
               <label className={`text-sm font-medium mb-1 block text-black dark:text-white ${nameError ? "text-destructive dark:text-destructive" : ""}`}>
                 Template Name
               </label>
@@ -618,7 +618,7 @@ export default function TemplateCreator({
 
             <h3 className="text-lg font-medium mb-4 text-black dark:text-white">Exercises</h3>
 
-            <div className="max-h-[50vh] overflow-y-auto mb-6">
+            <div className="h-[calc(100vh-400px)] w-full max-w-none overflow-y-auto mb-6">
               {exercises.length === 0 ? (
                 <div className="text-center py-8 text-muted-foreground">No exercises added yet</div>
               ) : (
