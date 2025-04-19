@@ -479,37 +479,39 @@ export default function LiftMatePage() {
 
       {mounted && (
         <div className="flex flex-col h-screen">
-          {/* App Header with animated text */}
-          <header className="app-header flex items-center justify-between p-4 text-white pt-[env(safe-area-inset-top)]">
-            <div className="flex items-center gap-2">
-              <div className="h-12 w-12 flex items-center justify-center" aria-label="LiftMate">
-                <div className="w-[40px] h-[40px] flex items-center justify-between relative animate-[rotateDumbbell_2s_infinite_linear,bobDumbbell_1.8s_infinite_ease-in-out]">
-                  <div className="absolute w-[20px] h-[5px] bg-white rounded-md left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[-1]"></div>
-                  <div className="w-[15px] h-[15px] bg-white rounded-lg shadow-md animate-[glowWeight_2s_infinite_ease-in-out] animation-delay-[0.2s]"></div>
-                  <div className="w-[15px] h-[15px] bg-white rounded-lg shadow-md animate-[glowWeight_2s_infinite_ease-in-out] animation-delay-[0.4s]"></div>
+          {/* App Header with animated text - only shown when loading is complete */}
+          {!loading && (
+            <header className="app-header flex items-center justify-between p-4 text-white pt-[env(safe-area-inset-top)]">
+              <div className="flex items-center gap-2">
+                <div className="h-12 w-12 flex items-center justify-center" aria-label="LiftMate">
+                  <div className="w-[40px] h-[40px] flex items-center justify-between relative animate-[rotateDumbbell_2s_infinite_linear,bobDumbbell_1.8s_infinite_ease-in-out]">
+                    <div className="absolute w-[20px] h-[5px] bg-white rounded-md left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[-1]"></div>
+                    <div className="w-[15px] h-[15px] bg-white rounded-lg shadow-md animate-[glowWeight_2s_infinite_ease-in-out] animation-delay-[0.2s]"></div>
+                    <div className="w-[15px] h-[15px] bg-white rounded-lg shadow-md animate-[glowWeight_2s_infinite_ease-in-out] animation-delay-[0.4s]"></div>
+                  </div>
                 </div>
+                <h1 className="text-2xl font-bold">
+                  <span className="typing-text !text-white">LiftMate</span>
+                </h1>
               </div>
-              <h1 className="text-2xl font-bold">
-                <span className="typing-text !text-white">LiftMate</span>
-              </h1>
-            </div>
-            <div className="flex items-center gap-2">
-              <ThemeSelector />
-              <ThemeToggle />
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="text-white">
-                    <span className="sr-only">Storage Info</span>
-                    <Database className="h-6 w-6 text-white" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56">
-                  <DropdownMenuLabel>Storage Usage</DropdownMenuLabel>
-                  <StorageInfo />
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-          </header>
+              <div className="flex items-center gap-2">
+                <ThemeSelector />
+                <ThemeToggle />
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" className="text-white">
+                      <span className="sr-only">Storage Info</span>
+                      <Database className="h-6 w-6 text-white" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56">
+                    <DropdownMenuLabel>Storage Usage</DropdownMenuLabel>
+                    <StorageInfo />
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            </header>
+          )}
 
           {/* Main Content - Optimized with TabContent component */}
           <main className="flex-1 overflow-x-hidden overflow-y-auto relative">
