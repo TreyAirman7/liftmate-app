@@ -1,5 +1,5 @@
 // Theme color definitions based on the style guide
-export type ThemeColor = "default" | "blue" | "green" | "orange" | "red" | "teal" | "pink" | "indigo" | "amber" | "cyan"
+export type ThemeColor = "default" | "blue" | "green" | "orange" | "red" | "teal" | "pink" | "indigo" | "amber" | "cyan" | "lavender" | "lime" | "deepPurple" | "yellow" | "deepOrange" | "lightBlue" | "brown" | "gray" | "coral" | "mint"
 
 export interface ThemeColors {
   primary: string
@@ -101,6 +101,96 @@ export const themeColors: Record<ThemeColor, ThemeColors> = {
     tertiary: "#006064",
     tertiaryContainer: "#84FFFF",
     primaryDarker: "#006064",
+  },
+  lavender: {
+    primary: "#7F39FB",
+    primaryContainer: "#EAE0FF",
+    secondary: "#6A56F9",
+    secondaryContainer: "#E5DEFF",
+    tertiary: "#8C4DFF",
+    tertiaryContainer: "#DDD4FF",
+    primaryDarker: "#5929D4",
+  },
+  lime: {
+    primary: "#CDDC39",
+    primaryContainer: "#F0F4C3",
+    secondary: "#C0CA33",
+    secondaryContainer: "#F9FBE7",
+    tertiary: "#AFB42B",
+    tertiaryContainer: "#F1F8E9",
+    primaryDarker: "#9E9D24",
+  },
+  deepPurple: {
+    primary: "#673AB7",
+    primaryContainer: "#EDE7F6",
+    secondary: "#5E35B1",
+    secondaryContainer: "#D1C4E9",
+    tertiary: "#512DA8",
+    tertiaryContainer: "#B39DDB",
+    primaryDarker: "#4527A0",
+  },
+  yellow: {
+    primary: "#FFEB3B",
+    primaryContainer: "#FFFDE7",
+    secondary: "#FDD835",
+    secondaryContainer: "#FFF9C4",
+    tertiary: "#FBC02D",
+    tertiaryContainer: "#FFECB3",
+    primaryDarker: "#F9A825",
+  },
+  deepOrange: {
+    primary: "#FF5722",
+    primaryContainer: "#FBE9E7",
+    secondary: "#E64A19",
+    secondaryContainer: "#FFCCBC",
+    tertiary: "#D84315",
+    tertiaryContainer: "#FFAB91",
+    primaryDarker: "#BF360C",
+  },
+  lightBlue: {
+    primary: "#03A9F4",
+    primaryContainer: "#E1F5FE",
+    secondary: "#039BE5",
+    secondaryContainer: "#B3E5FC",
+    tertiary: "#0288D1",
+    tertiaryContainer: "#B3E5FC",
+    primaryDarker: "#0277BD",
+  },
+  brown: {
+    primary: "#795548",
+    primaryContainer: "#EFEBE9",
+    secondary: "#6D4C41",
+    secondaryContainer: "#D7CCC8",
+    tertiary: "#5D4037",
+    tertiaryContainer: "#D7CCC8",
+    primaryDarker: "#4E342E",
+  },
+  gray: {
+    primary: "#9E9E9E",
+    primaryContainer: "#F5F5F5",
+    secondary: "#757575",
+    secondaryContainer: "#EEEEEE",
+    tertiary: "#616161",
+    tertiaryContainer: "#E0E0E0",
+    primaryDarker: "#424242",
+  },
+  coral: {
+    primary: "#FF6F61",
+    primaryContainer: "#FFEDEA",
+    secondary: "#F0625B",
+    secondaryContainer: "#FFD8D6",
+    tertiary: "#E64A4B",
+    tertiaryContainer: "#FFE1E0",
+    primaryDarker: "#D8433B",
+  },
+  mint: {
+    primary: "#98FF98",
+    primaryContainer: "#E6FFE6",
+    secondary: "#7ED97E",
+    secondaryContainer: "#CCF0CC",
+    tertiary: "#6CCF6C",
+    tertiaryContainer: "#BBEABB",
+    primaryDarker: "#56A956",
   },
 }
 
