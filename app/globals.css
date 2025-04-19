@@ -416,7 +416,7 @@ body {
     left: 0;
     width: 100%;
     z-index: 1000;
-    background: linear-gradient(135deg, var(--md-primary) 0%, var(--md-primary-darker) 100%);
+    background-color: var(--md-primary);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     padding-top: env(safe-area-inset-top);
     height: calc(56px + env(safe-area-inset-top));
