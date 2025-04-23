@@ -2471,7 +2471,8 @@ html {
 .app-container main svg:hover,
 .app-container main img:hover,
 .app-container main i:hover {
-  transform: rotateY(360deg) rotateX(15deg) scale(1.1);
+  /* transform: rotateY(360deg) rotateX(15deg) scale(1.1); */ /* Removed rotation */
+  transform: scale(1.1); /* Keep scale effect */
   fill: var(--md-primary);
   filter: drop-shadow(0 10px 15px rgba(var(--md-primary-rgb), 0.3));
 }

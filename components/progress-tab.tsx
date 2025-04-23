@@ -12,6 +12,7 @@ import type { CompletedWorkout } from "@/lib/data-manager"
 import DataManager from "@/lib/data-manager"
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
+import { PerformancePredictor } from "@/components/performance-predictor"
 
 interface WeightEntry {
   date: string
@@ -348,7 +349,7 @@ export default function ProgressTab() {
                           <Line
                             type="monotone"
                             dataKey="weight"
-                            stroke={themeColor === "default" ? "#FFA500" : "var(--md-primary)"}
+                            stroke={themeColor === "olive" ? "#FFA500" : "var(--md-primary)"}
                             strokeWidth={2}
                             dot={{ r: 4 }}
                             activeDot={{ r: 6 }}
@@ -368,6 +369,19 @@ export default function ProgressTab() {
                 )}
               </CardContent>
             </Card>
+
+            {/* Performance Predictor */}
+            <div className="mt-6">
+              <PerformancePredictor
+                selectedExercise={selectedExercise}
+                selectedExerciseId={availableExercises.length > 0 ?
+                  workouts.find(w =>
+                    w.exercises.some(e => e.exerciseName === selectedExercise)
+                  )?.exercises.find(e => e.exerciseName === selectedExercise)?.exerciseId || "" : ""}
+                selectedTimeframe={selectedTimeframe}
+                workouts={workouts}
+              />
+            </div>
 
             {/* Stats Summary */}
             <div className="grid grid-cols-3 gap-2">
@@ -433,7 +447,7 @@ export default function ProgressTab() {
                           <Line
                             type="monotone"
                             dataKey="weight"
-                            stroke={themeColor === "default" ? "#FFA500" : "var(--md-primary)"}
+                            stroke={themeColor === "olive" ? "#FFA500" : "var(--md-primary)"}
                             strokeWidth={2}
                             dot={{ r: 4 }}
                             activeDot={{ r: 6 }}

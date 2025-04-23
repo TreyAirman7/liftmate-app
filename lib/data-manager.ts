@@ -68,11 +68,40 @@ export interface UserProfile {
   joinDate: string
 }
 
+export interface GoalMilestone {
+  value: number;
+  targetDate: string; // ISO Date string
+  achievedDate?: string | null; // ISO Date string if achieved
+}
+
+export type GoalUnit = 'kg' | 'lbs' | 'reps' | 'visits' | 'minutes';
+
+export interface UserGoal {
+  id: string; // Unique ID
+  exerciseId?: string | null; // Link to Exercise interface (optional for non-exercise goals)
+  exerciseName?: string | null; // Denormalized for display
+  goalType: 'exercise' | 'weight' | 'visits' | 'duration'; // Type of goal
+  targetValue: number;
+  targetUnit: GoalUnit; // Expandable units
+  startValue: number; // Value at the start date
+  startDate: string; // ISO Date string
+  // Optional user-defined target date
+  userTargetDate?: string | null; // ISO Date string
+  // Calculated fields (updated periodically or on demand)
+  currentValue?: number; // Latest achieved value from workouts or manual input
+  projectedDate?: string | null; // Calculated ISO Date string
+  confidence?: number | null; // Calculated confidence (0-1)
+  milestones?: GoalMilestone[]; // Array of milestones
+  completed?: boolean; // Track completion status
+}
+
+
 // Storage keys
 const STORAGE_KEYS = {
   EXERCISES: "liftmate-exercises",
   TEMPLATES: "liftmate-templates",
   WORKOUTS: "liftmate-workouts",
+  GOALS: "liftmate-goals", // Added Goals key
   ACTIVE_WORKOUT: "liftmate-active-workout",
   SETTINGS: "liftmate-settings",
   USER_PROFILE: "liftmate-user-profile",
@@ -111,6 +140,7 @@ const initializeStorage = (): void => {
   localStorage.setItem(STORAGE_KEYS.EXERCISES, JSON.stringify(preloadedExercises)) // Initialize with preloaded exercises
   localStorage.setItem(STORAGE_KEYS.TEMPLATES, JSON.stringify(preloadedTemplates)) // Initialize with preloaded templates
   localStorage.setItem(STORAGE_KEYS.WORKOUTS, JSON.stringify([]))
+  localStorage.setItem(STORAGE_KEYS.GOALS, JSON.stringify([])) // Initialize Goals
 }
 
 // Get settings
@@ -216,6 +246,49 @@ const deleteExercise = (id: string): void => {
   localStorage.setItem(STORAGE_KEYS.EXERCISES, JSON.stringify(filteredExercises))
 }
 
+// --- Goal Management ---
+
+// Get all goals
+const getGoals = (): UserGoal[] => {
+  const goals = localStorage.getItem(STORAGE_KEYS.GOALS)
+  return goals ? JSON.parse(goals) : []
+}
+
+// Save or update a goal
+const saveGoal = (goal: UserGoal): void => {
+  const goals = getGoals()
+  const index = goals.findIndex((g) => g.id === goal.id)
+
+  if (index >= 0) {
+    goals[index] = goal // Update existing goal
+  } else {
+    goals.push(goal) // Add new goal
+  }
+
+  localStorage.setItem(STORAGE_KEYS.GOALS, JSON.stringify(goals))
+}
+
+// Delete a goal
+const deleteGoal = (id: string): void => {
+  const goals = getGoals()
+  const filteredGoals = goals.filter((g) => g.id !== id)
+  localStorage.setItem(STORAGE_KEYS.GOALS, JSON.stringify(filteredGoals))
+}
+
+// Update a specific goal (useful for partial updates like currentValue)
+const updateGoal = (id: string, updates: Partial<UserGoal>): void => {
+  const goals = getGoals()
+  const index = goals.findIndex((g) => g.id === id)
+
+  if (index >= 0) {
+    goals[index] = { ...goals[index], ...updates }
+    localStorage.setItem(STORAGE_KEYS.GOALS, JSON.stringify(goals))
+  } else {
+    console.warn(`Goal with id ${id} not found for update.`)
+  }
+}
+
+
 // Export the data manager
 const DataManager = {
   initializeStorage,
@@ -233,6 +306,11 @@ const DataManager = {
   getExercises,
   saveExercise,
   deleteExercise,
+  // Goal functions
+  getGoals,
+  saveGoal,
+  deleteGoal,
+  updateGoal,
 }
 
 export default DataManager
