@@ -1,0 +1,7 @@
+version: 2
+authtoken: cr_2wfH6UYlcbHgFihGDLW5pgho4NQ
+tunnels:
+  ollama-proxy:
+    proto: http
+    addr: 3500
+    inspect: false

@@ -25,3 +25,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# Tunneling / Proxy specific ignores
+ngrok.exe
+ngrok.zip
+ollama-remote-access/node_modules/
+ollama-remote-access/config.json
+ollama-remote-access/ngrok.yml
+ollama-remote-access/localtunnel-url.txt
+ollama-remote-access/ngrok-url.txt
