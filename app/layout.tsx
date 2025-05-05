@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import "@/app/globals.css";
+import "@vibe/core/tokens";
 import { ThemeProvider } from "@/components/theme-provider";
 import { WorkoutProvider } from "@/lib/workout-context";
 import Script from "next/script";

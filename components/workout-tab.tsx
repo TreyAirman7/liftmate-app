@@ -23,6 +23,7 @@ import TemplatePreview from "@/components/template-preview"
 import type { CompletedWorkout, WorkoutTemplate } from "@/lib/data-manager"
 import DataManager from "@/lib/data-manager"
 import { showSuccessToast, showErrorToast } from "@/lib/toast"
+import WorkoutAdvisor from "@/components/workout-advisor"
 
 interface WorkoutTabProps {
   userName: string
@@ -208,11 +209,11 @@ export default function WorkoutTab({ userName, greeting }: WorkoutTabProps) {
     setTemplateToPreview(null)
     setWorkoutState("idle")
   }
-// Render based on workout state
-if (workoutState === "active") {
-  // WorkoutTracker needs the updated onComplete signature
-  return <WorkoutTracker onComplete={handleWorkoutComplete} onCancel={handleWorkoutCancel} initialExercises={[]} />
-}
+  // Render based on workout state
+  if (workoutState === "active") {
+    // WorkoutTracker needs the updated onComplete signature
+    return <WorkoutTracker onComplete={handleWorkoutComplete} onCancel={handleWorkoutCancel} initialExercises={[]} />
+  }
 
 
   if (workoutState === "template") {
@@ -225,10 +226,10 @@ if (workoutState === "active") {
       />
     )
   }
-if (workoutState === "summary" && currentWorkout) {
-  // Pass the stored wasTemplateBased state to WorkoutSummary
-  return <WorkoutSummary workout={currentWorkout} onSave={saveWorkout} onSaveAsTemplate={() => {}} isTemplateBased={wasTemplateBased} />
-}
+  if (workoutState === "summary" && currentWorkout) {
+    // Pass the stored wasTemplateBased state to WorkoutSummary
+    return <WorkoutSummary workout={currentWorkout} onSave={saveWorkout} onSaveAsTemplate={() => {}} isTemplateBased={wasTemplateBased} />
+  }
 
 
   if (workoutState === "preview" && templateToPreview) {
@@ -247,6 +248,10 @@ if (workoutState === "summary" && currentWorkout) {
   // Default idle state
   return (
     <div className="flex flex-col items-center p-4 space-y-6">
+      {/* AI Workout Advisor */}
+      <div className="w-full max-w-md">
+        <WorkoutAdvisor />
+      </div>
       {/* Current Workout Header */}
       <div className="flex flex-col items-center space-y-2 w-full">
         <Dumbbell className="h-10 w-10" />
@@ -445,4 +450,3 @@ if (workoutState === "summary" && currentWorkout) {
     </div>
   )
 }
-

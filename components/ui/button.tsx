@@ -3,6 +3,7 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
+import { ArrowUpRight } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
@@ -46,5 +47,49 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 )
 Button.displayName = "Button"
 
-export { Button, buttonVariants }
+interface ModernButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  label?: string;
+  icon?: React.ReactNode;
+}
 
+export function ModernButton({
+  className,
+  label = "Get Started",
+  icon = <ArrowUpRight className="w-3.5 h-3.5" />,
+  ...props
+}: ModernButtonProps) {
+  return (
+    <Button
+      className={cn(
+        "relative h-10 px-4 overflow-hidden",
+        "bg-primary dark:bg-primary",
+        "transition-all duration-300",
+        "group",
+        className
+      )}
+      {...props}
+    >
+      {/* Hover effect overlay */}
+      <div
+        className={cn(
+          "absolute inset-0",
+          "bg-foreground/10",
+          "opacity-0 group-hover:opacity-20",
+          "transition-opacity duration-300"
+        )}
+      />
+
+      {/* Content */}
+      <div className="relative flex items-center justify-center gap-2">
+        <span className="text-primary-foreground">{label}</span>
+        {icon && (
+          <span className="text-primary-foreground/90 transition-transform duration-300 group-hover:translate-x-0.5">
+            {icon}
+          </span>
+        )}
+      </div>
+    </Button>
+  );
+}
+
+export { Button, buttonVariants }
