@@ -48,9 +48,9 @@ Given this context, answer the user's question below in a single concise paragra
 User's question: ${question}
 `;
 
-    // Prepare Ollama API payload
-    const ollamaPayload = {
-      model: modelName,
+    // Prepare OpenRouter API payload
+    const openrouterPayload = {
+      model: "Qwen/Qwen2.5-Coder-7B-Instruct", // Use the specified model
       messages: [
         {
           role: "user",
@@ -60,20 +60,23 @@ User's question: ${question}
       stream: false,
     };
 
-    // Call local Ollama API
-    const ollamaRes = await fetch("http://localhost:11434/api/chat", {
+    // Call OpenRouter API
+    const openrouterRes = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(ollamaPayload),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`
+      },
+      body: JSON.stringify(openrouterPayload), // The payload structure is compatible
     });
 
-    if (!ollamaRes.ok) {
-      const errorText = await ollamaRes.text();
-      return NextResponse.json({ error: "Ollama API error", details: errorText }, { status: 500 });
+    if (!openrouterRes.ok) {
+      const errorText = await openrouterRes.text();
+      return NextResponse.json({ error: "OpenRouter API error", details: errorText }, { status: 500 });
     }
 
-    const ollamaData = await ollamaRes.json();
-    const answer = ollamaData?.message?.content || "No response from LLM.";
+    const openrouterData = await openrouterRes.json();
+    const answer = openrouterData?.choices?.[0]?.message?.content || "No response from LLM.";
 
     return NextResponse.json({ answer, model: modelName });
   } catch (error: any) {

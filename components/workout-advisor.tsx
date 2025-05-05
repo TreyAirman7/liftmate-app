@@ -257,22 +257,10 @@ export default function WorkoutAdvisor() {
     setUserContext(context);
 
     try {
-      // Construct the URL using the environment variable pointing to the localtunnel/proxy
-      const apiUrl = `${process.env.NEXT_PUBLIC_OLLAMA_URL}/api/chat`;
-      console.log("Attempting to fetch from:", apiUrl); // Add log for debugging
-
-      const res = await fetch(apiUrl, {
+      const res = await fetch("/api/workout-advice", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        // Send only the necessary data to the proxy/Ollama
-        body: JSON.stringify({
-          model: model, // Pass the selected model
-          messages: [ // Use the messages format Ollama expects
-            { role: "system", content: `You are LiftMate AI, a helpful fitness advisor. Use the following user context to provide personalized advice:\n${JSON.stringify(context, null, 2)}` },
-            { role: "user", content: question }
-          ],
-          stream: false // Assuming non-streaming for now
-        }),
+        body: JSON.stringify({ question, userContext: context, model }),
       });
       const data = await res.json();
       if (!res.ok) {

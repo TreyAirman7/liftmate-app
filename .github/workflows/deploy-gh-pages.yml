@@ -28,10 +28,9 @@ jobs:
       - name: Install Dependencies
         run: yarn install # Removed --frozen-lockfile
       - name: Build with Next.js
-        env:
-          # IMPORTANT: Update this URL every time you get a new one from localtunnel before deploying!
-          NEXT_PUBLIC_OLLAMA_URL: https://fruity-worlds-live.loca.lt
         run: yarn build # Build handles static export when output: 'export' is set
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
