@@ -30,7 +30,7 @@ jobs:
       - name: Build with Next.js
         env:
           # IMPORTANT: Update this URL every time you get a new one from localtunnel before deploying!
-          NEXT_PUBLIC_OLLAMA_URL: https://thin-cycles-learn.loca.lt
+          NEXT_PUBLIC_OLLAMA_URL: https://fruity-worlds-live.loca.lt
         run: yarn build # Build handles static export when output: 'export' is set
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

@@ -24,7 +24,16 @@ if (fs.existsSync(configPath)) {
 
 // Create Express app for the proxy
 const app = express();
-app.use(cors());
+
+// Configure CORS to specifically allow your GitHub Pages origin
+const corsOptions = {
+  origin: 'https://treyairman7.github.io', // Allow requests from your deployed site
+  methods: ['GET', 'POST', 'OPTIONS'], // Allow necessary methods
+  allowedHeaders: ['Content-Type'], // Allow necessary headers
+};
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Pre-flight requests
+
 app.use(express.json());
 
 // Store the ngrok URL
